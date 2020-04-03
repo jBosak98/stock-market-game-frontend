@@ -1,0 +1,9 @@
+.NavigationBarItems {
+  > a {
+    color: inherit;
+    text-decoration: inherit;
+    .Mui-selected {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+}
