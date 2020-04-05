@@ -2,6 +2,11 @@
   display: flex;
 
   .main-content {
+    overflow: auto;
+    height: 100vh;
+    background-color: #dedede;
+    color: #3d3d3d;
+    width: 100%;
     > div {
       height: 64px;
     }
