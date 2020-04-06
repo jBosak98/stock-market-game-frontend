@@ -13,15 +13,20 @@
   flex-wrap: nowrap;
   width: 100%;
   margin: 1rem;
+  .MuiPaper-rounded {
+    width: 80%;
+    min-width: 620px;
+  }
 }
 
 .flex-container {
   @extend %flex-center;
-  margin: auto;
-  width: 100%;
+  margin: 30px 0px 30px 0px;
+  width: max-content;
   height: auto;
   min-height: 5em;
   overflow: auto;
+
   p {
     margin: 0.5em;
     display: inline-block;
