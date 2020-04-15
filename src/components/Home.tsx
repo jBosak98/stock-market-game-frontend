@@ -39,7 +39,7 @@ function StatusIcon(props: StatusPicType) {
 }
 
 type TestIconType = {
-  status: string;
+  status: "todo" | "failed" | "passed";
 };
 
 function TestIcon(props: TestIconType) {
@@ -53,15 +53,17 @@ function TestIcon(props: TestIconType) {
 }
 
 function TestField(props: TestFieldType) {
-  const subject: string = props.subject;
-  const owner: string = props.owner;
-  const pub_date: string = props.pub_date;
-  const result: string = props.result;
-  const result_positive: boolean = props.result_positive;
-  const attempts: number = props.attempts;
-  const available_attempts: number = props.available_attempts;
-  const deadline: string = props.deadline;
-  const time: number = props.time;
+  const {
+    subject,
+    owner,
+    pub_date,
+    result,
+    result_positive,
+    attempts,
+    available_attempts,
+    deadline,
+    time,
+  } = props;
 
   let field = (
     <div className="paper">
