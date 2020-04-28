@@ -9,7 +9,7 @@ import "./SimpleAppBar.scss";
 
 const SimpleAppBar = ({
   isDrawerOpened,
-  setIsDrawerOpened
+  setIsDrawerOpened,
 }: {
   isDrawerOpened: boolean;
   setIsDrawerOpened: (drawState: boolean) => any;
@@ -26,7 +26,7 @@ const SimpleAppBar = ({
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap>
-          Dashboard
+          E-gzamin
         </Typography>
       </Toolbar>
     </AppBar>

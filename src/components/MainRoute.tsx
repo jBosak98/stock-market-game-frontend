@@ -1,42 +1,58 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import SimpleAppBar from "./SimpleAppBar";
 import SimpleDrawer from "./SimpleDrawer";
 import AddQuest from "./AddQuest";
 import Group from "./Group";
 import Home from "./Home";
+
 import MakeTest from "./MakeTest";
 import Settings from "./Settings";
 import Tests from "./Tests";
+import AuthRoute from "./AuthRoute";
 
-type DrawerProps = {
-  isDrawerOpened: boolean;
-  setIsDrawerOpened: (drawerState: boolean) => any;
-};
+function MainRoute() {
+  const [isDrawerOpened, setIsDrawerOpened] = useState<boolean>(true);
+  const isLoggedIn = true;
 
-function MainRoute(props: DrawerProps) {
   return (
-    <Router>
-      <SimpleAppBar {...props} />
-      <SimpleDrawer {...props} />
+    <BrowserRouter>
+      <SimpleAppBar
+        isDrawerOpened={isDrawerOpened}
+        setIsDrawerOpened={setIsDrawerOpened}
+      />
+      {isLoggedIn && (
+        <SimpleDrawer
+          setIsDrawerOpened={setIsDrawerOpened}
+          isDrawerOpened={isDrawerOpened}
+        />
+      )}
       <div className="main-content">
-        <div />
-        <_MainSwitch />
+        <div className="appbar-space" />
+        <div className="main-container">
+          <_MainSwitch isLoggedIn={isLoggedIn} />
+        </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
-const _MainSwitch = () => (
+const _MainSwitch = ({ isLoggedIn }: { isLoggedIn: Boolean }) => (
   <Switch>
-    <Route exact path="/" component={Home} />
-    <Route exact path="/addquest" component={AddQuest} />
-    <Route exact path="/group" component={Group} />
-    <Route exact path="/maketest" component={MakeTest} />
-    <Route exact path="/settings" component={Settings} />
-    <Route exact path="/tests" component={Tests} />
-    <Route component={Home} />
+    {isLoggedIn && (
+      <>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/addquest" component={AddQuest} />
+        <Route exact path="/group" component={Group} />
+        <Route exact path="/maketest" component={MakeTest} />
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/tests" component={Tests} />
+        <Redirect to="/" />
+      </>
+    )}
+    <Route path="/auth" component={AuthRoute} />
+    <Redirect to="/auth" />
   </Switch>
 );
 

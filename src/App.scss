@@ -1,9 +1,14 @@
 .App {
   display: flex;
-
+  height: 100vh;
   .main-content {
-    > div {
+    width: 100%;
+    .appbar-space {
       height: 64px;
+    }
+    .main-container {
+      display: flex;
+      height: calc(100vh - 64px);
     }
   }
 }
