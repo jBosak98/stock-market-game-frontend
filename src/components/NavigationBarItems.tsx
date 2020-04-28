@@ -72,7 +72,7 @@ const NavigationBarItems = () => {
       <div className="navbar-space" />
       <div className="bottom-items">
         <_MenuItem
-          selectedItem={selectedItem}
+          selectedItem={""}
           onClick={logoutAction}
           to="/"
           label="Logout"
