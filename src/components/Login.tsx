@@ -9,6 +9,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import loginAction from "../actions/loginAction";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,7 +50,13 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            loginAction("sdf@fsd", "dsagfsdg");
+          }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -81,6 +88,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => console.log("xd")}
           >
             Sign Up
           </Button>

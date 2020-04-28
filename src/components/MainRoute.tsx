@@ -11,10 +11,11 @@ import MakeTest from "./MakeTest";
 import Settings from "./Settings";
 import Tests from "./Tests";
 import AuthRoute from "./AuthRoute";
+import isLoggedIn from "../lib/isLoggedIn";
 
 function MainRoute() {
   const [isDrawerOpened, setIsDrawerOpened] = useState<boolean>(true);
-  const isLoggedIn = true;
+  const isUserLoggedIn = isLoggedIn();
 
   return (
     <BrowserRouter>
@@ -22,7 +23,7 @@ function MainRoute() {
         isDrawerOpened={isDrawerOpened}
         setIsDrawerOpened={setIsDrawerOpened}
       />
-      {isLoggedIn && (
+      {isUserLoggedIn && (
         <SimpleDrawer
           setIsDrawerOpened={setIsDrawerOpened}
           isDrawerOpened={isDrawerOpened}
@@ -31,7 +32,7 @@ function MainRoute() {
       <div className="main-content">
         <div className="appbar-space" />
         <div className="main-container">
-          <_MainSwitch isLoggedIn={isLoggedIn} />
+          <_MainSwitch isLoggedIn={isUserLoggedIn} />
         </div>
       </div>
     </BrowserRouter>
