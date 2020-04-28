@@ -1,9 +1,18 @@
 .NavigationBarItems {
-  > a {
+  height: 100%;
+  a {
     color: inherit;
     text-decoration: inherit;
+    > div {
+      height: 50px;
+    }
     .Mui-selected {
       background-color: rgba(0, 0, 0, 0.12);
     }
+  }
+  .bottom-items {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
   }
 }

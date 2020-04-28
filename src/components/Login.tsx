@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import loginAction from "../actions/loginAction";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleSubmit = () => {
+    loginAction("sdf@fsd", "dsagfsdg");
+    history.push("/home");
+    window.location.reload(true);
+  };
 
   return (
     <Container
@@ -50,13 +58,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form
-          className={classes.form}
-          onSubmit={(e) => {
-            e.preventDefault();
-            loginAction("sdf@fsd", "dsagfsdg");
-          }}
-        >
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -88,7 +90,6 @@ const Login = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => console.log("xd")}
           >
             Sign Up
           </Button>
