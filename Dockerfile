@@ -1,7 +1,6 @@
 FROM node:12
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
+WORKDIR /usr/app/
 COPY . .
+RUN npm install --quiet
 EXPOSE 3000
 CMD [ "npm", "start" ]
