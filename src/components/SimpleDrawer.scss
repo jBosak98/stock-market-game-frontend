@@ -4,9 +4,11 @@
   .MuiPaper-elevation0 {
     > button.MuiButtonBase-root.MuiIconButton-root {
       min-height: 56px;
+      min-width: 56px;
 
       @media (min-width: 600px) {
         min-height: 64px;
+        min-width: 64px;
       }
     }
   }

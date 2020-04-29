@@ -12,11 +12,29 @@ import Settings from "./Settings";
 import Tests from "./Tests";
 import AuthRoute from "./AuthRoute";
 import isLoggedIn from "../lib/isLoggedIn";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  content: {
+    width: "100%",
+    backgroundColor: theme.palette.background.default,
+  },
+  appbarSpace: {
+    height: "64px",
+    overflow: "auto",
+  },
+  mainContainer: {
+    display: "flex",
+    height: "calc(100vh - 64px)",
+    overflow: "auto",
+    width: "100%",
+  },
+}));
 
 function MainRoute() {
   const [isDrawerOpened, setIsDrawerOpened] = useState<boolean>(true);
   const isUserLoggedIn = isLoggedIn();
-
+  const styles = useStyles();
   return (
     <BrowserRouter>
       <SimpleAppBar
@@ -29,9 +47,9 @@ function MainRoute() {
           isDrawerOpened={isDrawerOpened}
         />
       )}
-      <div className="main-content">
-        <div className="appbar-space" />
-        <div className="main-container">
+      <div className={styles.content}>
+        <div className={styles.appbarSpace} />
+        <div className={styles.mainContainer}>
           <_MainSwitch isLoggedIn={isUserLoggedIn} />
         </div>
       </div>
