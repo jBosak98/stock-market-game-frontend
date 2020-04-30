@@ -11,13 +11,11 @@ import React, { useState } from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { Link as NavLink } from "react-router-dom";
 import logoutAction from "../actions/logoutAction";
-import { useHistory } from "react-router-dom";
 
 import "./NavigationBarItems.scss";
 
 const NavigationBarItems = () => {
   const [selectedItem, setSelectedItem] = useState(document.location.pathname);
-  const history = useHistory();
 
   return (
     <div className="NavigationBarItems">
