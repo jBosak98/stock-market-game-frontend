@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleAppBar = ({
   isDrawerOpened,
-  setIsDrawerOpened,
+  setIsDrawerOpened = () => {},
 }: {
   isDrawerOpened: boolean;
   setIsDrawerOpened: (drawState: boolean) => unknown;
