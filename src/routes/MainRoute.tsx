@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-import SimpleAppBar from "./SimpleAppBar";
-import SimpleDrawer from "./SimpleDrawer";
-import AddQuest from "./AddQuest";
-import Group from "./Group";
-import Home from "./Home";
-
-import MakeTest from "./MakeTest";
-import Settings from "./Settings";
-import Tests from "./Tests";
-import AuthRoute from "./AuthRoute";
-import isLoggedIn from "../lib/isLoggedIn";
 import { makeStyles } from "@material-ui/core/styles";
+
+import AddQuest from "../components/AddQuest";
+import AuthRoute from "./AuthRoute";
+import Group from "../components/Group";
+import Home from "../components/Home";
+import MakeTest from "../components/MakeTest";
+import Settings from "../components/Settings";
+import SimpleAppBar from "../components/SimpleAppBar";
+import SimpleDrawer from "../components/SimpleDrawer";
+import Tests from "../components/Tests";
+import isLoggedIn from "../lib/isLoggedIn";
 
 const useStyles = makeStyles((theme) => ({
   content: {

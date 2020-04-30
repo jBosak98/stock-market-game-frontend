@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import SimpleAppBar from "./SimpleAppBar";
-import Register from "./Register";
-import Login from "./Login";
+import SimpleAppBar from "../components/SimpleAppBar";
+import Register from "../components/Register";
+import Login from "../components/Login";
 
 const AuthRoute = ({ match: { path } }: { match: { path: String } }) => {
   return (
