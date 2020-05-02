@@ -5,7 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -33,15 +33,24 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
 }));
-
+type dataType = {
+  email: string;
+  password: string;
+};
 const Login = () => {
   const classes = useStyles();
   const history = useHistory();
-
-  const handleSubmit = () => {
-    loginAction("sdf@fsd", "dsagfsdg");
-    history.push("/home");
-    window.location.reload(true);
+  const [data, setData] = useState<dataType>({
+    email: "",
+    password: "",
+  });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const response = await loginAction(data.email, data.password);
+    if (response) {
+      history.push("/");
+      window.location.reload(false);
+    }
   };
 
   return (
@@ -66,6 +75,7 @@ const Login = () => {
                 required
                 fullWidth
                 id="email"
+                onChange={(v) => setData({ ...data, email: v.target.value })}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
@@ -77,6 +87,7 @@ const Login = () => {
                 required
                 fullWidth
                 name="password"
+                onChange={(v) => setData({ ...data, password: v.target.value })}
                 label="Password"
                 type="password"
                 id="password"
