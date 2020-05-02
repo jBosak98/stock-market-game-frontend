@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 
 import AddQuest from "../components/AddQuest";
 import AuthRoute from "./AuthRoute";
 import PrivateRoute from "./PrivateRoute";
 import Group from "../components/Group";
+import PublicRoute from "./PublicRoute";
 import Home from "../components/Home";
 import MakeTest from "../components/MakeTest";
 import Settings from "../components/Settings";
@@ -20,7 +21,7 @@ function MainRoute() {
       <PrivateRoute exact path="/settings" component={Settings} />
       <PrivateRoute exact path="/tests" component={Tests} />
 
-      <Route path="/auth" component={AuthRoute} />
+      <PublicRoute path="/auth" component={AuthRoute} />
       <Redirect to="/" />
     </Switch>
   );

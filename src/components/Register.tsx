@@ -5,10 +5,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
+
+import registerAction from "../actions/registerAction";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,10 +34,24 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
 }));
-
+type dataType = {
+  email: string;
+  password: string;
+};
 const Register = () => {
   const classes = useStyles();
+  const history = useHistory();
 
+  const [data, setData] = useState<dataType>({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    registerAction(data);
+    history.push("/auth/login");
+  };
   return (
     <Container
       className={classes.registerContainer}
@@ -49,36 +66,15 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
+                value={data.email}
+                onChange={(v) => setData({ ...data, email: v.target.value })}
                 id="email"
                 label="Email Address"
                 name="email"
@@ -90,7 +86,9 @@ const Register = () => {
                 variant="outlined"
                 required
                 fullWidth
+                value={data.password}
                 name="password"
+                onChange={(v) => setData({ ...data, password: v.target.value })}
                 label="Password"
                 type="password"
                 id="password"
