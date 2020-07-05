@@ -55,13 +55,22 @@ const Login: React.FC<LoginProps> = ({ history }: LoginProps) => {
     e: React.FormEvent<HTMLFormElement> | undefined
   ): Promise<void> => {
     e?.preventDefault();
-    await login({
+    const response = await login({
       user: {
         email: data.email,
         password: data.password,
       },
     });
-    addAlert({ message: "aaaa", serverity: "success" });
+
+    const errors =
+      (response.error &&
+        response.error.graphQLErrors.map(({ message }) => message)) || [
+        response?.error?.message,
+      ] ||
+      [];
+    errors.map(
+      (message) => message && addAlert({ message, serverity: "error" })
+    );
   };
 
   return (
