@@ -23,7 +23,7 @@ const NavigationBarItems = () => {
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/"
-        label="Home"
+        label="Section 1"
       >
         <DashboardIcon />
       </_MenuItem>
@@ -31,23 +31,23 @@ const NavigationBarItems = () => {
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/maketest"
-        label="Make a test"
+        label="Section 2"
       >
-        <PostAddIcon />
+        <DashboardIcon />
       </_MenuItem>
       <_MenuItem
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/group"
-        label="Groups"
+        label="Section 3"
       >
-        <PeopleIcon />
+        <DashboardIcon />
       </_MenuItem>
       <_MenuItem
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/addquest"
-        label="Add Questions"
+        label="Section 4"
       >
         <AddIcon />
       </_MenuItem>
@@ -55,7 +55,7 @@ const NavigationBarItems = () => {
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/settings"
-        label="Settings"
+        label="Section 5"
       >
         <SettingsIcon />
       </_MenuItem>
@@ -63,9 +63,9 @@ const NavigationBarItems = () => {
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/tests"
-        label="Designed tests"
+        label="Section 6"
       >
-        <LayersIcon />
+        <DashboardIcon />
       </_MenuItem>
       <div className="navbar-space" />
       <div className="bottom-items">
