@@ -4,6 +4,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import lightGreen from "@material-ui/core/colors/lightGreen";
 import teal from "@material-ui/core/colors/teal";
+import lime from "@material-ui/core/colors/lime";
 
 interface Props {
   children?: React.ReactNode;
@@ -23,12 +24,12 @@ const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
-      main: lightGreen["600"],
-      dark: lightGreen["600"],
+      main: teal["500"],
+      dark: teal["500"],
     },
     secondary: {
       light: "#0066ff",
-      main: teal["600"],
+      main: lime["500"],
       contrastText: "#ffcc00",
     },
     contrastThreshold: 3,
@@ -44,12 +45,12 @@ const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: lightGreen["600"],
-      dark: lightGreen["600"],
+      main: teal["500"],
+      dark: teal["500"],
     },
     secondary: {
       light: "#0066ff",
-      main: teal["600"],
+      main: lime["500"],
       contrastText: "#ffcc00",
     },
     contrastThreshold: 3,

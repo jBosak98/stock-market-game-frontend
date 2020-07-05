@@ -1,13 +1,14 @@
 import React from "react";
 import "./Group.css";
-import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 function Group() {
   const x: string = "Group";
   return (
     <div className="Group">
-      <p>Hello World {x}</p>
-      <Link to="/">Go Home</Link>
+      <Typography component="h1" variant="h5" color="textPrimary">
+        Section 3
+      </Typography>
     </div>
   );
 }
