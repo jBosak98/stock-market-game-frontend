@@ -9,8 +9,8 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import loginAction from "../actions/loginAction";
-import { useHistory } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { useAlertContext } from "../contexts/AlertContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,20 +37,31 @@ type dataType = {
   email: string;
   password: string;
 };
-const Login = () => {
+type LoginProps = {
+  history: {
+    push: (a: string) => any;
+  };
+};
+const Login: React.FC<LoginProps> = ({ history }: LoginProps) => {
   const classes = useStyles();
-  const history = useHistory();
   const [data, setData] = useState<dataType>({
     email: "",
     password: "",
   });
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const response = await loginAction(data.email, data.password);
-    if (response) {
-      history.push("/");
-      window.location.reload(false);
-    }
+  const { login } = useAuth();
+
+  const { addAlert } = useAlertContext();
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement> | undefined
+  ): Promise<void> => {
+    e?.preventDefault();
+    await login({
+      user: {
+        email: data.email,
+        password: data.password,
+      },
+    });
+    addAlert({ message: "aaaa", serverity: "success" });
   };
 
   return (

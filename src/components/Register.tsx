@@ -10,8 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-
-import registerAction from "../actions/registerAction";
+import useAuth, { RegisterVariables } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,7 +40,7 @@ type dataType = {
 const Register = () => {
   const classes = useStyles();
   const history = useHistory();
-
+  const { register } = useAuth();
   const [data, setData] = useState<dataType>({
     email: "",
     password: "",
@@ -49,8 +48,10 @@ const Register = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    registerAction(data);
-    history.push("/auth/login");
+    const registerInput: RegisterVariables = {
+      user: data,
+    };
+    register(registerInput);
   };
   return (
     <Container
@@ -58,7 +59,6 @@ const Register = () => {
       component="main"
       maxWidth="xs"
     >
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
