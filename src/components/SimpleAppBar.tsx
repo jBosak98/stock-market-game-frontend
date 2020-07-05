@@ -1,14 +1,17 @@
+import Alert from "@material-ui/lab/Alert";
 import AppBar from "@material-ui/core/AppBar";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 import MenuIcon from "@material-ui/icons/Menu";
 import React from "react";
+import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import classnames from "classnames";
 import { Toolbar, IconButton } from "@material-ui/core";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
-import { useThemeMode } from "../contexts/ThemeModeContext";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./SimpleAppBar.scss";
+import { useAlertContext } from "../contexts/AlertContext";
+import { useThemeMode } from "../contexts/ThemeModeContext";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -16,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     width: "inherit",
+  },
+  alertContainer: {
+    position: "absolute",
+    right: "50px",
+    top: "80px",
+  },
+  alert: {
+    margin: "5px",
   },
 }));
 
@@ -26,7 +37,9 @@ const SimpleAppBar = ({
   isDrawerOpened: boolean;
   setIsDrawerOpened: (drawState: boolean) => unknown;
 }) => {
+  const { alerts, addAlert } = useAlertContext();
   const classes = useStyles();
+
   const { darkMode, setDarkMode } = useThemeMode();
   return (
     <div className={classnames("SimpleAppBar", { isOpen: isDrawerOpened })}>
@@ -34,7 +47,7 @@ const SimpleAppBar = ({
         <Toolbar>
           <IconButton
             edge="start"
-            color="inherit"
+            color="default"
             aria-label="open drawer"
             onClick={() => setIsDrawerOpened(true)}
           >
@@ -43,12 +56,32 @@ const SimpleAppBar = ({
           <Typography
             component="h1"
             variant="h6"
-            color="inherit"
+            color="textPrimary"
             noWrap
             className={classes.typography}
           >
-            E-gzamin
+            Stock Market Game
           </Typography>
+
+          <div className={classes.alertContainer}>
+            {alerts.map(({ collapse, message, serverity }, index) => (
+              <Slide
+                direction="left"
+                in={collapse}
+                key={index}
+                mountOnEnter
+                unmountOnExit
+              >
+                <Alert
+                  className={classes.alert}
+                  variant="filled"
+                  severity={serverity}
+                >
+                  {message}
+                </Alert>
+              </Slide>
+            ))}
+          </div>
           <IconButton onClick={() => setDarkMode(!darkMode)}>
             <Brightness4Icon />
           </IconButton>
