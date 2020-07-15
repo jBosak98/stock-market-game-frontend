@@ -10,6 +10,17 @@ const loginQuery = `
     }
   }
 `;
+
+const registerMutation = `
+  mutation register($user: UserRegisterInput!){
+    register(user:$user){
+      id
+      token
+      email
+    }
+  }
+`;
+
 type LoginVariables = { user: { email: string; password: string } };
 type LoginResponse = {
   login: {
@@ -58,7 +69,7 @@ const useRegister = (
   args: RegisterVariables,
 ) => Promise<OperationResult<RegisterResponse>>) => {
   const [_, registerFetch] = useMutation<RegisterResponse, RegisterVariables>(
-    loginQuery,
+    registerMutation,
   );
 
   const register = async (
