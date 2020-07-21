@@ -1,17 +1,15 @@
 import React from "react";
-import "./AddQuest.css";
-import { Link } from "react-router-dom";
+import "./PortfolioSection.scss";
 import Typography from "@material-ui/core/Typography";
 
-function AddQuest() {
-  const x: string = "AddQuest";
+function PortfolioSection() {
   return (
-    <div className="AddQuest">
+    <div className="PortfolioSection">
       <Typography component="h1" variant="h5" color="textPrimary">
-        Section 4
+      PortfolioSection
       </Typography>
     </div>
   );
 }
 
-export default AddQuest;
+export default PortfolioSection;

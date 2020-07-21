@@ -1,17 +1,15 @@
 import React from "react";
-import "./MakeTest.css";
-import { Link } from "react-router-dom";
+import "./RankingSection.scss";
 import Typography from "@material-ui/core/Typography";
 
-function MakeTest() {
-  const x: string = "MakeTest";
+function RankingSection() {
   return (
-    <div className="MakeTest">
+    <div className="RankingSection">
       <Typography component="h1" variant="h5" color="textPrimary">
-        Section 2
+      RankingSection
       </Typography>
     </div>
   );
 }
 
-export default MakeTest;
+export default RankingSection;

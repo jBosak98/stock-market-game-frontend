@@ -1,16 +1,15 @@
 import React from "react";
-import "./Group.css";
+import "./StockSection.scss";
 import Typography from "@material-ui/core/Typography";
 
-function Group() {
-  const x: string = "Group";
+function StockSection() {
   return (
-    <div className="Group">
+    <div className="StockSection">
       <Typography component="h1" variant="h5" color="textPrimary">
-        Section 3
+        StockSection
       </Typography>
     </div>
   );
 }
 
-export default Group;
+export default StockSection;
