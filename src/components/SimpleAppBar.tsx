@@ -37,7 +37,7 @@ const SimpleAppBar = ({
   isDrawerOpened: boolean;
   setIsDrawerOpened: (drawState: boolean) => unknown;
 }) => {
-  const { alerts, addAlert } = useAlertContext();
+  const { alerts } = useAlertContext();
   const classes = useStyles();
 
   const { darkMode, setDarkMode } = useThemeMode();
@@ -64,7 +64,7 @@ const SimpleAppBar = ({
           </Typography>
 
           <div className={classes.alertContainer}>
-            {alerts.map(({ collapse, message, serverity }, index) => (
+            {alerts.map(({ collapse, content }, index) => (
               <Slide
                 direction="left"
                 in={collapse}
@@ -75,9 +75,9 @@ const SimpleAppBar = ({
                 <Alert
                   className={classes.alert}
                   variant="filled"
-                  severity={serverity}
+                  severity={content.serverity}
                 >
-                  {message}
+                  {content.message}
                 </Alert>
               </Slide>
             ))}

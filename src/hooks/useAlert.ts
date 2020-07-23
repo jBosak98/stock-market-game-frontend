@@ -1,44 +1,48 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
-export type addAlertType = {
+type AlertContent = {
   serverity: 'success' | 'info' | 'warning' | 'error';
   message: string;
-  collapse?: boolean;
 };
-type useAlertType = {
-  alerts: Array<addAlertType>;
-  addAlert: (alert: addAlertType, time?: number) => void;
+type Alert = {
+  content: AlertContent;
+  collapse: boolean;
+  id: number;
 };
-const useAlert = (): useAlertType => {
-  const [alerts, setAlerts] = useState<Array<addAlertType>>([]);
-  const closeAlert = (alert: addAlertType): void => {
-    setAlerts(a =>
-      a.filter(
-        ({ serverity, message }) =>
-          message !== alert.message || serverity !== alert.serverity,
-      ),
-    );
-  };
-  const collapseAlert = (
-    collapseAlert: addAlertType,
-    collapse: boolean,
-  ): void => {
-    setAlerts(a => [
-      ...a.filter(
-        ({ serverity, message }) =>
-          message !== collapseAlert.message ||
-          serverity !== collapseAlert.serverity,
-      ),
-      { ...collapseAlert, collapse },
-    ]);
-  };
-  const addAlert = (alert: addAlertType, time = 3000): void => {
-    const newAllerts = [...alerts, { ...alert, collapse: false }];
-    setAlerts(newAllerts);
-    setTimeout(() => collapseAlert(alert, true), 0);
-    setTimeout(() => collapseAlert(alert, false), time);
-    setTimeout(() => closeAlert(alert), time + 200);
-  };
+
+export type {Alert, AlertContent }
+const useTimeouts = () => {
+  const ids = useRef<number[]>([]);
+  useEffect(() => () => ids.current.map(clearTimeout)[0], []);
+  return useCallback((callback: () => void, time: number, id:number) => {
+       setTimeout(() => {
+          ids.current.splice(ids.current.indexOf(id), 1);
+          callback();
+      }, time);
+      ids.current.push(id);
+  }, []);
+};
+
+const useAlert = () => {
+  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const timeout = useTimeouts()
+  const alertId = useRef(0);
+  const closeAlert = (id: number) => 
+    setAlerts(a =>a.filter(alert =>alert.id !== id));
+  
+  const collapseAlert = useCallback((id: number, collapse: boolean) => 
+    setAlerts(alerts => alerts.map(alert =>
+      alert.id !== id ? alert : { ...alert, collapse }
+      )), []);
+
+  const addAlert = useCallback((content: AlertContent, time = 3000) => {
+    const id = ++alertId.current;
+    setAlerts(alerts => [...alerts, { content, collapse: false, id }]);
+    timeout(() => collapseAlert(id, true), 0, id);
+    timeout(() => collapseAlert(id, false), time,id);
+    timeout(() => closeAlert(id), time + 200,id);
+  }, []);
+
   return { alerts, addAlert };
 };
 

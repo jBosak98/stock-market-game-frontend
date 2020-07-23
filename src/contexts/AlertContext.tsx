@@ -1,15 +1,9 @@
 import React, { useContext, createContext } from "react";
-import useAlert, { addAlertType } from "../hooks/useAlert";
-
-type AlertType = {
-  serverity: "success" | "info" | "warning" | "error";
-  message: string;
-  collapse?: boolean;
-};
+import useAlert, { Alert, AlertContent } from "../hooks/useAlert";
 
 type AlertContextType = {
-  alerts: Array<AlertType>;
-  addAlert: (alert: addAlertType, time?: number) => void;
+  alerts: Alert[];
+  addAlert: (alert: AlertContent, time?: number) => void;
 };
 
 const AlertContext = createContext<AlertContextType>({
@@ -23,9 +17,7 @@ type AlertContextProviderProps = {
   children?: React.ReactNode;
 };
 
-const AlertContextProvider: React.FC<AlertContextProviderProps> = ({
-  children,
-}: AlertContextProviderProps) => {
+const AlertContextProvider = ({ children }: AlertContextProviderProps) => {
   const { alerts, addAlert } = useAlert();
   return (
     <AlertContext.Provider value={{ alerts, addAlert }}>
