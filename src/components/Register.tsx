@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import useAuth, { RegisterVariables } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
+  paper: { 
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
