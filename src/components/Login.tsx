@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
-import useAuth from '../hooks/useAuth';
-import { useAlertContext } from '../contexts/AlertContext';
-import SimpleTextField from './atoms/SimpleTextField/SimpleTextField';
-import FormContainer from '../components/molecules/FormContainer/FormContainer';
+import React, { useState } from "react";
+import Grid from "@material-ui/core/Grid";
+
+import useAuth from "../hooks/useAuth";
+import { useAlertContext } from "../contexts/AlertContext";
+import SimpleTextField from "./atoms/SimpleTextField/SimpleTextField";
+import FormContainer from "../components/molecules/FormContainer/FormContainer";
+import showErrors from "../lib/showErrors";
 
 type dataType = {
   email: string;
@@ -12,13 +14,15 @@ type dataType = {
 
 const Login = () => {
   const [data, setData] = useState<dataType>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const { login } = useAuth();
 
   const { addAlert } = useAlertContext();
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement> | undefined): Promise<void> => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement> | undefined
+  ): Promise<void> => {
     e?.preventDefault();
     const response = await login({
       user: {
@@ -26,13 +30,7 @@ const Login = () => {
         password: data.password,
       },
     });
-
-    const errors =
-      (response.error && response.error.graphQLErrors.map(({ message }) => message)) || [
-        response?.error?.message,
-      ] ||
-      [];
-    errors.map(message => message && addAlert({ message, serverity: 'error' }));
+    showErrors(response, addAlert);
   };
 
   return (
@@ -48,7 +46,7 @@ const Login = () => {
           labelName="Email Address"
           variantType="outlined"
           autoComplete="email"
-          onChange={value => setData({ ...data, email: value })}
+          onChange={(value) => setData({ ...data, email: value })}
           value={data.email}
         />
       </Grid>
@@ -58,7 +56,7 @@ const Login = () => {
           labelName="Password"
           variantType="outlined"
           autoComplete="current-password"
-          onChange={value => setData({ ...data, password: value })}
+          onChange={(value) => setData({ ...data, password: value })}
           value={data.password}
         />
       </Grid>

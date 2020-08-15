@@ -3,8 +3,9 @@ import useAlert, { Alert, AlertContent } from "../hooks/useAlert";
 
 type AlertContextType = {
   alerts: Alert[];
-  addAlert: (alert: AlertContent, time?: number) => void;
+  addAlert: AddAlertType;
 };
+export type AddAlertType = (alert: AlertContent, time?: number) => void;
 
 const AlertContext = createContext<AlertContextType>({
   alerts: [],
