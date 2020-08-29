@@ -1,16 +1,14 @@
 import React from "react";
-import "./Tests.css";
 import Typography from "@material-ui/core/Typography";
 
-function Tests() {
-  const x: string = "Tests";
+function PortfolioSection() {
   return (
-    <div className="Tests">
+    <div className="PortfolioSection">
       <Typography component="h1" variant="h5" color="textPrimary">
-        Section 6
+        PortfolioSection
       </Typography>
     </div>
   );
 }
 
-export default Tests;
+export default PortfolioSection;
