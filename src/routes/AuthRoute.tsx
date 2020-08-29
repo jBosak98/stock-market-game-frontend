@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import Register from "../components/Register";
-import Login from "../components/Login";
+import Register from "../components/organisms/Register";
+import Login from "../components/organisms/Login";
 
 const AuthRoute = ({ match: { path } }: { match: { path: String } }) => {
   return (

@@ -1,12 +1,11 @@
 import React from "react";
-import "./RankingSection.scss";
 import Typography from "@material-ui/core/Typography";
 
 function RankingSection() {
   return (
-    <div className="RankingSection">
+    <div>
       <Typography component="h1" variant="h5" color="textPrimary">
-      RankingSection
+        RankingSection
       </Typography>
     </div>
   );

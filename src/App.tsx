@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.scss";
-import ApplicationLayout from "./components/ApplicationLayout";
+import ApplicationLayout from "./components/molecules/ApplicationLayout";
 import { ThemeModeProvider } from "./contexts/ThemeModeContext";
 import { AlertContextProvider } from "./contexts/AlertContext";
 import { createClient, Provider } from "urql";

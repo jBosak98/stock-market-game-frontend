@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 
-import useAuth from "../hooks/useAuth";
-import { useAlertContext } from "../contexts/AlertContext";
-import SimpleTextField from "./atoms/SimpleTextField/SimpleTextField";
-import FormContainer from "../components/molecules/FormContainer/FormContainer";
-import showErrors from "../lib/showErrors";
+import useAuth from "../../hooks/useAuth";
+import { useAlertContext } from "../../contexts/AlertContext";
+import SimpleTextField from "../atoms/SimpleTextField/SimpleTextField";
+import FormContainer from "../molecules/FormContainer/FormContainer";
+import showErrors from "../../lib/showErrors";
 
 type dataType = {
   email: string;

@@ -10,8 +10,8 @@ import { Toolbar, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./SimpleAppBar.scss";
-import { useAlertContext } from "../contexts/AlertContext";
-import { useThemeMode } from "../contexts/ThemeModeContext";
+import { useAlertContext } from "../../contexts/AlertContext";
+import { useThemeMode } from "../../contexts/ThemeModeContext";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
