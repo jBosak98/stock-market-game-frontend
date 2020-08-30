@@ -1,21 +1,23 @@
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import HistoryIcon from "@material-ui/icons/History";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import React, { useState } from "react";
 import SettingsIcon from "@material-ui/icons/Settings";
-import HistoryIcon from "@material-ui/icons/History";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { Link as NavLink } from "react-router-dom";
+
+import "./NavigationBarItems.scss";
 import logoutAction from "../../actions/logoutAction";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 
 const NavigationBarItems = () => {
   const [selectedItem, setSelectedItem] = useState(document.location.pathname);
 
   return (
-    <div>
+    <div className="NavigationBarItems">
       <_MenuItem
         selectedItem={selectedItem}
         onClick={setSelectedItem}
