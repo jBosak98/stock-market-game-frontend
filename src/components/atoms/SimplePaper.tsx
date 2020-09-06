@@ -9,6 +9,12 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     padding: "20px",
     margin: "20px",
     paddingTop: (props) => (props.topbar ? "50px" : "20px"),
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      marginLeft: "0px",
+      marginRight: "0px",
+    },
   },
   topbar: {
     minWidth: "30%",

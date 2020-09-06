@@ -1,4 +1,4 @@
-import { useQuery } from 'urql';
+import { useQuery } from "urql";
 
 const stockQuery = `
 query getCompanies($skip: Int, $limit: Int) {
@@ -6,27 +6,35 @@ query getCompanies($skip: Int, $limit: Int) {
       totalCount
       companies {
         id
-        name,
-        stockPrice {
-            id
-            lastPrice
+        name
+        ticker
+        quote {
+          companyId
+          dailyChange
+          currentPrice 
         }
       }
     }
   }
 `;
 
+type Quote = {
+  companyId: Number;
+  currentPrice: Number;
+  dailyChange: Number;
+};
+
+export type Company = {
+  id: number;
+  name: String;
+  ticker: String;
+  quote: Quote;
+};
+
 type StockQueryResult = {
   companiesConnection: {
     totalCount: Number;
-    companies: {
-      id: Number;
-      name: String;
-      stockPrice: {
-        id: Number;
-        lastPrice: Number;
-      };
-    };
+    companies: Company[];
   };
 };
 
@@ -37,7 +45,6 @@ const useStock = (skip: number = 0, limit: number = 10) => {
   });
 
   const { data, error, fetching } = result;
-  console.log(result);
   return { data, error, fetching };
 };
 
