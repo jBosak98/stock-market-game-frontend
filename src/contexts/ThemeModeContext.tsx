@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
-import lime from '@material-ui/core/colors/lime';
+import React, { useContext } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import teal from "@material-ui/core/colors/teal";
+import lime from "@material-ui/core/colors/lime";
 
 interface Props {
   children?: React.ReactNode;
@@ -21,48 +21,48 @@ export const useThemeMode = () => useContext(ThemeModeContext);
 
 const darkTheme = createMuiTheme({
   palette: {
-    type: 'dark',
+    type: "dark",
     primary: {
-      main: teal['500'],
-      dark: teal['500'],
+      main: teal["500"],
+      dark: teal["500"],
     },
     secondary: {
-      light: '#0066ff',
-      main: lime['500'],
-      contrastText: '#ffcc00',
+      light: "#0066ff",
+      main: lime["500"],
+      contrastText: "#ffcc00",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
     background: {
-      default: '#121212',
-      paper: '#272c34',
+      default: "#121212",
+      paper: "#272c34",
     },
   },
 });
 
 const theme = createMuiTheme({
   palette: {
-    type: 'light',
+    type: "light",
     primary: {
-      main: teal['500'],
-      dark: teal['500'],
+      main: teal["500"],
+      dark: teal["500"],
     },
     secondary: {
-      light: '#0066ff',
-      main: lime['500'],
-      contrastText: '#ffcc00',
+      light: "#0066ff",
+      main: lime["500"],
+      contrastText: "#ffcc00",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
     background: {
-      default: '#ffffff',
-      paper: '#f5f5f5',
+      default: "#dfdfdf",
+      paper: "#f5f5f5",
     },
   },
 });
 
 export const ThemeModeProvider = ({ children }: Props) => {
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
   return (
     <ThemeModeContext.Provider
       value={{
@@ -70,7 +70,9 @@ export const ThemeModeProvider = ({ children }: Props) => {
         setDarkMode,
       }}
     >
-      <ThemeProvider theme={darkMode ? darkTheme : theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={darkMode ? darkTheme : theme}>
+        {children}
+      </ThemeProvider>
     </ThemeModeContext.Provider>
   );
 };
