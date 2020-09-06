@@ -17,7 +17,6 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     },
   },
   topbar: {
-    minWidth: "30%",
     height: "100%",
     display: "inline-block",
     marginTop: "-20px",
@@ -29,6 +28,12 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
       teal["200"],
       0.4
     )}`,
+    [theme.breakpoints.up("xs")]: {
+      minWidth: "40%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "70%",
+    },
   },
   header: {
     display: "inline-block",
