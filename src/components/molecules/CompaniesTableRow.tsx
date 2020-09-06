@@ -3,6 +3,7 @@ import { makeStyles, Grid } from "@material-ui/core";
 
 import { Company } from "../../hooks/useStock";
 import Button from "@material-ui/core/Button";
+import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
   optional: {
@@ -38,26 +39,4 @@ const CompaniesTableRow = ({ company }: { company: Company }) => {
   );
 };
 
-type RowElementProps = {
-  children: React.ReactNode;
-  className?: string;
-};
-
-const useElementStyles = makeStyles((theme) => ({
-  element: {
-    fontSize: "15px",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "14px",
-    },
-  },
-}));
-
-const RowElement = ({ children, className }: RowElementProps) => {
-  const styles = useElementStyles();
-  return (
-    <Grid className={className || styles.element} xs={4} sm={4} md={2} item>
-      {children}
-    </Grid>
-  );
-};
 export default CompaniesTableRow;
