@@ -5,16 +5,7 @@ import { Company } from "../../hooks/useStock";
 import Button from "@material-ui/core/Button";
 import RowElement from "../atoms/RowElement";
 
-const useStyles = makeStyles((theme) => ({
-  optional: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-}));
-
 const CompaniesTableRow = ({ company }: { company: Company }) => {
-  const styles = useStyles();
   const { id, name, ticker, quote } = company;
   const { currentPrice, dailyChange } = quote;
   return (
@@ -25,12 +16,12 @@ const CompaniesTableRow = ({ company }: { company: Company }) => {
       key={id}
       direction="row"
     >
-      <RowElement className={styles.optional}>{ticker}</RowElement>
+      <RowElement optional>{ticker}</RowElement>
       <RowElement>{name}</RowElement>
       <RowElement>{dailyChange}</RowElement>
-      <RowElement className={styles.optional}>{0.0}</RowElement>
+      <RowElement optional>{0.0}</RowElement>
       <RowElement>{currentPrice}</RowElement>
-      <RowElement className={styles.optional}>
+      <RowElement optional>
         <Button type="submit" fullWidth variant="contained" color="primary">
           TRANSACTION
         </Button>

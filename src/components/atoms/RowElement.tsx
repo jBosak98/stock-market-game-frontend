@@ -4,6 +4,7 @@ import { makeStyles, Grid } from "@material-ui/core";
 type RowElementProps = {
   children: React.ReactNode;
   className?: string;
+  optional?: boolean;
 };
 
 const useElementStyles = makeStyles((theme) => ({
@@ -15,12 +16,29 @@ const useElementStyles = makeStyles((theme) => ({
       fontSize: "14px",
     },
   },
+  optional: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
-const RowElement = ({ children, className }: RowElementProps) => {
+const RowElement = ({
+  children,
+  className,
+  optional = false,
+}: RowElementProps) => {
   const styles = useElementStyles();
   return (
-    <Grid className={className || styles.element} xs={4} sm={4} md={2} item>
+    <Grid
+      className={`${className} ${styles.element} ${(optional &&
+        styles.optional) ||
+        ""}`}
+      xs={4}
+      sm={4}
+      md={2}
+      item
+    >
       {children}
     </Grid>
   );

@@ -5,25 +5,27 @@ import { Grid } from "@material-ui/core";
 import SimplePaper from "../atoms/SimplePaper";
 import { Company } from "../../hooks/useStock";
 import CompaniesTableRow from "../molecules/CompaniesTableRow";
+import CompaniesTableHeader from "../molecules/CompaniesTableHeader";
 
-const CompaniesTable = ({ companies }: { companies: Company[] }) => {
+type CompaniesTableProps = { companies: Company[] };
+
+const CompaniesTable = ({ companies }: CompaniesTableProps) => {
   return (
-    <SimplePaper
-      topbar={
-        <Typography variant="h4" color="textPrimary">
-          Stock
-        </Typography>
-      }
-    >
-      <Typography component="h1" variant="h5" color="textPrimary">
-        <Grid>
-          {companies?.map((company) => (
-            <CompaniesTableRow key={company.id} company={company} />
-          ))}
-        </Grid>
-      </Typography>
+    <SimplePaper topbar={<CompaniesTableTopbar />}>
+      <Grid>
+        <CompaniesTableHeader />
+        {companies?.map((company) => (
+          <CompaniesTableRow key={company.id} company={company} />
+        ))}
+      </Grid>
     </SimplePaper>
   );
 };
+
+const CompaniesTableTopbar = () => (
+  <Typography variant="h4" color="textPrimary">
+    Stock
+  </Typography>
+);
 
 export default CompaniesTable;
