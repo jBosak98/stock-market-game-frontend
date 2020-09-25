@@ -6,19 +6,36 @@ import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    borderBottom: "1px #ffffff solid",
+    borderBottom: `2px ${theme.palette.primary.main} solid`,
+    marginBottom: "12px",
+  },
+  element: {
+    marginBottom: "0px",
   },
 }));
 
 const CompaniesTableHeader = () => {
+  const styles = useStyles();
   return (
     <>
-      <Grid spacing={3} alignContent="space-around" container direction="row">
-        <HeaderRowElement optional>SYMBOL</HeaderRowElement>
-        <HeaderRowElement>NAME</HeaderRowElement>
-        <HeaderRowElement>CHANGE</HeaderRowElement>
-        <HeaderRowElement optional>CHANGE PERCENTAGE</HeaderRowElement>
-        <HeaderRowElement>LAST PRICE</HeaderRowElement>
+      <Grid
+        className={styles.header}
+        spacing={3}
+        alignContent="space-around"
+        container
+        direction="row"
+      >
+        <HeaderRowElement className={styles.element} optional>
+          SYMBOL
+        </HeaderRowElement>
+        <HeaderRowElement className={styles.element}>NAME</HeaderRowElement>
+        <HeaderRowElement className={styles.element}>CHANGE</HeaderRowElement>
+        <HeaderRowElement className={styles.element} optional>
+          CHANGE PERCENTAGE
+        </HeaderRowElement>
+        <HeaderRowElement className={styles.element}>
+          LAST PRICE
+        </HeaderRowElement>
       </Grid>
     </>
   );
@@ -29,8 +46,12 @@ type HeaderRowElementProps = {
   className?: string;
   optional?: boolean;
 };
-const HeaderRowElement = ({ optional, children }: HeaderRowElementProps) => (
-  <RowElement optional={optional}>
+const HeaderRowElement = ({
+  optional,
+  children,
+  className,
+}: HeaderRowElementProps) => (
+  <RowElement className={className} optional={optional}>
     <Typography variant="subtitle1" color="primary">
       {children}
     </Typography>
