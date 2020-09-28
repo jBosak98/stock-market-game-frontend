@@ -6,8 +6,8 @@ import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    borderBottom: `2px ${theme.palette.primary.main} solid`,
-    marginBottom: "12px",
+    borderBottom: `1px ${theme.palette.grey["50"]} solid`,
+    marginBottom: "0px",
   },
   element: {
     marginBottom: "0px",

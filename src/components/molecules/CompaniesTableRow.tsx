@@ -5,11 +5,21 @@ import { Company } from "../../hooks/useStock";
 import Button from "@material-ui/core/Button";
 import RowElement from "../atoms/RowElement";
 
+const useStyles = makeStyles((theme) => ({
+  row: {
+    borderBottom: `1px ${theme.palette.grey["100"]} solid`,
+    margin: "0px",
+  },
+}));
+
 const CompaniesTableRow = ({ company }: { company: Company }) => {
+  const styles = useStyles();
   const { id, name, ticker, quote } = company;
   const { currentPrice, dailyChange } = quote;
+
   return (
     <Grid
+      className={styles.row}
       spacing={3}
       alignContent="space-around"
       container

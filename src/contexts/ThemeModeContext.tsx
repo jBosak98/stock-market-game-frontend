@@ -37,6 +37,10 @@ const darkTheme = createMuiTheme({
       default: "#121212",
       paper: "#272c34",
     },
+    grey: {
+      "100": "#1a1a1a",
+      "50": "#8f8f8f",
+    },
   },
 });
 
@@ -57,6 +61,10 @@ const theme = createMuiTheme({
     background: {
       default: "#dfdfdf",
       paper: "#f5f5f5",
+    },
+    grey: {
+      "100": "#E5E5E5",
+      "50": "#707070",
     },
   },
 });
