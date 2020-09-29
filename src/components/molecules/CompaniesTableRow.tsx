@@ -26,8 +26,10 @@ const CompaniesTableRow = ({ company }: { company: Company }) => {
       key={id}
       direction="row"
     >
-      <RowElement optional>{ticker}</RowElement>
-      <RowElement>{name}</RowElement>
+      <RowElement link={`/company/${ticker}`} optional>
+        {ticker}
+      </RowElement>
+      <RowElement link={`/company/${ticker}`}>{name}</RowElement>
       <RowElement>{dailyChange}</RowElement>
       <RowElement optional>{0.0}</RowElement>
       <RowElement>{currentPrice}</RowElement>

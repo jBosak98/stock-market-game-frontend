@@ -1,10 +1,13 @@
-import React from "react";
-import { makeStyles, Grid } from "@material-ui/core";
+import React, { MouseEvent } from "react";
+import { makeStyles, Grid, Link } from "@material-ui/core";
+
+import ConditionalWrapper from "./ConditionalWrapper";
 
 type RowElementProps = {
   children: React.ReactNode;
   className?: string;
   optional?: boolean;
+  link?: string | undefined;
 };
 
 const useElementStyles = makeStyles((theme) => ({
@@ -21,12 +24,18 @@ const useElementStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  link: {
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
 }));
 
 const RowElement = ({
   children,
   className,
   optional = false,
+  link,
 }: RowElementProps) => {
   const styles = useElementStyles();
   return (
@@ -39,7 +48,16 @@ const RowElement = ({
       md={2}
       item
     >
-      {children}
+      <ConditionalWrapper
+        condition={!!link}
+        wrapper={(children: React.ReactNode) => (
+          <Link className={styles.link} color="inherit" href={link}>
+            {children}
+          </Link>
+        )}
+      >
+        {children}
+      </ConditionalWrapper>
     </Grid>
   );
 };
