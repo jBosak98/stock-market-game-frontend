@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 
 import SimplePaper from "../atoms/SimplePaper";
+import mapData from "../../lib/mapData";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type DataPaperProps = {
-  data: Object;
+  data: {};
   title?: string;
 };
 
@@ -37,27 +38,29 @@ const DataPaper = ({ data, title }: DataPaperProps) => {
         {title || ""}
       </Typography>
       <Grid container direction="column">
-        {Object.entries(data).map(([key, value]) => (
-          <Grid
-            container
-            item
-            key={key}
-            justify="space-between"
-            direction="row"
-            className={styles.keyValueRow}
-          >
-            <Grid sm={5} item>
-              <Typography color="inherit" display="inline" variant="body1">
-                {key}
-              </Typography>
+        {Object.entries(data)
+          .flatMap(mapData)
+          .map(([key, value]) => (
+            <Grid
+              container
+              item
+              key={key}
+              justify="space-between"
+              direction="row"
+              className={styles.keyValueRow}
+            >
+              <Grid sm={5} item>
+                <Typography color="inherit" display="inline" variant="body1">
+                  {key}
+                </Typography>
+              </Grid>
+              <Grid sm={5} item>
+                <Typography color="inherit" display="inline" variant="body1">
+                  {value}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid sm={5} item>
-              <Typography color="inherit" display="inline" variant="body1">
-                {value}
-              </Typography>
-            </Grid>
-          </Grid>
-        ))}
+          ))}
       </Grid>
     </SimplePaper>
   );

@@ -19,6 +19,12 @@ query getCompanies($ticker: String!) {
       bookValuePerShareQuarterly
       bookValueShareGrowth5Y
       totalDebtOverTotalEquityQuarterly
+      fiftyTwoWeekLow
+      marketCapitalization
+      peNormalizedAnnual
+      epsGrowth3Y
+      dividendPerShareAnnual
+      beta
     }
     quote {
       companyId

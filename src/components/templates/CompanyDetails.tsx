@@ -20,14 +20,14 @@ const CompanyDetails = ({ match }: CompanyDetailsProps) => {
   const { ticker = null } = params || {};
   const { data } = useCompany(ticker);
   console.log(data);
-  const { getCompany } = data || {};
+  const { getCompany = { financials: {} } } = data || {};
   const { financials = {} } = getCompany || {};
   return (
     <>
       <ContentContainer>
         <SimplePaper topbar={<>{ticker}</>}>xd</SimplePaper>
         <Grid container justify="space-around" direction="row">
-          <DataPaper data={financials} title="key data" />
+          <DataPaper data={getCompany} title="key data" />
           <DataPaper data={financials} />
         </Grid>
       </ContentContainer>
