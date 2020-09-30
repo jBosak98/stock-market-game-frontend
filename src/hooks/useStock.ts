@@ -18,7 +18,7 @@ query getCompanies($skip: Int, $limit: Int) {
   }
 `;
 
-type Quote = {
+export type Quote = {
   companyId: Number;
   currentPrice: Number;
   dailyChange: Number;

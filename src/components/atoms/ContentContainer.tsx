@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     paddingTop: "50px",
     margin: "auto",
+    display: "flex",
+    flexDirection: "column",
     [theme.breakpoints.down("md")]: {
       paddingTop: "0px",
     },

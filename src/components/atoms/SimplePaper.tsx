@@ -47,16 +47,17 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
 type SimplePaperProps = {
   children: React.ReactNode;
   topbar?: React.ReactNode;
+  className?: string;
 };
 const SimplePaper = (props: SimplePaperProps) => {
-  const { children, topbar } = props;
+  const { children, topbar, className } = props;
   const styles = useStyles(props);
   return (
     <div>
       <div className={styles.header}>
         {topbar && <div className={styles.topbar}>{topbar}</div>}
       </div>
-      <Paper elevation={2} className={styles.paper}>
+      <Paper elevation={2} className={`${styles.paper} ${className || ""}`}>
         {children}
       </Paper>
     </div>
