@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
   keyValueRow: {
     minHeight: "50px",
+    fontSize: "15px",
     display: "flex",
     alignItems: "center",
     borderBottom: `1px ${theme.palette.grey["100"]} solid`,
-    color: "#4D4D4D",
+    color: theme.palette.grey["200"],
   },
 }));
 

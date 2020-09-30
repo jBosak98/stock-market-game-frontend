@@ -38,6 +38,7 @@ const darkTheme = createMuiTheme({
       paper: "#272c34",
     },
     grey: {
+      "200": "#b2b2b2",
       "100": "#1a1a1a",
       "50": "#8f8f8f",
     },
@@ -63,6 +64,7 @@ const theme = createMuiTheme({
       paper: "#f5f5f5",
     },
     grey: {
+      "200": "#4D4D4D",
       "100": "#E5E5E5",
       "50": "#707070",
     },
