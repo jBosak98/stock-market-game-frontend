@@ -5,9 +5,11 @@ import ContentContainer from "../atoms/ContentContainer";
 import useCompany from "../../hooks/useCompany";
 import DataPaper from "../organisms/DataPaper";
 import CompanyDetailsHeader from "../organisms/CompanyDetailsHeader";
+import Loader from "../atoms/Loader";
 
 type CompanyDetailsProps = {
   children?: React.ReactNode;
+  history?: { push: (path: string) => any };
   match?: {
     params: {
       ticker: string;
@@ -15,11 +17,17 @@ type CompanyDetailsProps = {
   };
 };
 
-const CompanyDetails = ({ match }: CompanyDetailsProps) => {
+const CompanyDetails = ({ match, history }: CompanyDetailsProps) => {
   const { params } = match || {};
   const { ticker = "" } = params || {};
-  const { data } = useCompany(ticker);
-  const { getCompany = { financials: {} } } = data || {};
+  const { data = {}, fetching, error } = useCompany(ticker);
+  if ((!data.getCompany && !fetching) || !!error) {
+    history && history.push("/stock");
+    return <Loader />;
+  }
+  if (fetching) return <Loader />;
+
+  const { getCompany = { financials: {} } } = data;
   const { financials = {} } = getCompany || {};
   return (
     <>
