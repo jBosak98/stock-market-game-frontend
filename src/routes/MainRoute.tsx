@@ -23,6 +23,11 @@ function MainRoute() {
         component={TransactionsHistorySection}
       />
       <PrivateRoute exact path="/company/:ticker" component={CompanyDetails} />
+      <PrivateRoute
+        exact
+        path="/company/:ticker/transaction"
+        component={() => <>transaction view</>}
+      />
       <PrivateRoute exact path="/settings" component={Settings} />
       <PublicRoute path="/auth" component={AuthRoute} />
       <Redirect to="/" />

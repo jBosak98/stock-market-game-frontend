@@ -2,9 +2,9 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 
 import ContentContainer from "../atoms/ContentContainer";
-import SimplePaper from "../atoms/SimplePaper";
 import useCompany from "../../hooks/useCompany";
 import DataPaper from "../organisms/DataPaper";
+import CompanyDetailsHeader from "../organisms/CompanyDetailsHeader";
 
 type CompanyDetailsProps = {
   children?: React.ReactNode;
@@ -17,15 +17,14 @@ type CompanyDetailsProps = {
 
 const CompanyDetails = ({ match }: CompanyDetailsProps) => {
   const { params } = match || {};
-  const { ticker = null } = params || {};
+  const { ticker = "" } = params || {};
   const { data } = useCompany(ticker);
-  console.log(data);
   const { getCompany = { financials: {} } } = data || {};
   const { financials = {} } = getCompany || {};
   return (
     <>
       <ContentContainer>
-        <SimplePaper topbar={<>{ticker}</>}>xd</SimplePaper>
+        <CompanyDetailsHeader ticker={ticker} />
         <Grid container justify="space-around" direction="row">
           <DataPaper data={getCompany} title="key data" />
           <DataPaper data={financials} />
