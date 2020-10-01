@@ -9,9 +9,14 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     padding: "20px",
     margin: "20px",
     paddingTop: (props) => (props.topbar ? "50px" : "20px"),
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "10px",
+      paddingRight: "10px",
+      marginLeft: "0px",
+      marginRight: "0px",
+    },
   },
   topbar: {
-    minWidth: "30%",
     height: "100%",
     display: "inline-block",
     marginTop: "-20px",
@@ -23,6 +28,12 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
       teal["200"],
       0.4
     )}`,
+    [theme.breakpoints.up("xs")]: {
+      minWidth: "40%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "70%",
+    },
   },
   header: {
     display: "inline-block",
@@ -36,16 +47,17 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
 type SimplePaperProps = {
   children: React.ReactNode;
   topbar?: React.ReactNode;
+  className?: string;
 };
 const SimplePaper = (props: SimplePaperProps) => {
-  const { children, topbar } = props;
+  const { children, topbar, className } = props;
   const styles = useStyles(props);
   return (
     <div>
       <div className={styles.header}>
         {topbar && <div className={styles.topbar}>{topbar}</div>}
       </div>
-      <Paper elevation={2} className={styles.paper}>
+      <Paper elevation={2} className={`${styles.paper} ${className || ""}`}>
         {children}
       </Paper>
     </div>

@@ -9,6 +9,7 @@ import PublicRoute from "./PublicRoute";
 import Portfolio from "../components/templates/PortfolioSection";
 import TransactionsHistorySection from "../components/templates/TransactionsHistorySection";
 import Settings from "../components/templates/Settings";
+import CompanyDetails from "../components/templates/CompanyDetails";
 
 function MainRoute() {
   return (
@@ -20,6 +21,12 @@ function MainRoute() {
         exact
         path="/history"
         component={TransactionsHistorySection}
+      />
+      <PrivateRoute exact path="/company/:ticker" component={CompanyDetails} />
+      <PrivateRoute
+        exact
+        path="/company/:ticker/transaction"
+        component={() => <>transaction view</>}
       />
       <PrivateRoute exact path="/settings" component={Settings} />
       <PublicRoute path="/auth" component={AuthRoute} />

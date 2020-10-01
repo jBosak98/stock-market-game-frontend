@@ -1,28 +1,17 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
+
 import ContentContainer from "../atoms/ContentContainer";
-
-import SimplePaper from "../atoms/SimplePaper";
-
-const useStyles = makeStyles(() => ({}));
+import useStock from "../../hooks/useStock";
+import CompaniesTable from "../organisms/CompaniesTable";
+import Loader from "../atoms/Loader";
 
 function StockSection() {
-  const styles = useStyles();
-
+  const { data } = useStock();
+  const companies = data?.companiesConnection.companies;
   return (
     <ContentContainer>
-      <SimplePaper
-        topbar={
-          <Typography variant="h4" color="textPrimary">
-            Stock
-          </Typography>
-        }
-      >
-        <Typography component="h1" variant="h5" color="textPrimary">
-          StockSection
-        </Typography>
-      </SimplePaper>
+      {(companies && <CompaniesTable companies={companies} />) || <Loader />}
     </ContentContainer>
   );
 }
