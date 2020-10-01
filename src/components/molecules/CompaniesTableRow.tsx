@@ -34,7 +34,13 @@ const CompaniesTableRow = ({ company }: { company: Company }) => {
       <RowElement optional>{0.0}</RowElement>
       <RowElement>{currentPrice}</RowElement>
       <RowElement optional>
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button
+          href={`/company/${ticker}/transaction`}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
           TRANSACTION
         </Button>
       </RowElement>
