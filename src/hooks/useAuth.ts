@@ -1,5 +1,8 @@
-import { useQuery, useMutation, OperationResult } from 'urql';
-import { useHistory } from 'react-router-dom';
+import { useMutation, OperationResult } from "urql";
+import { useHistory } from "react-router-dom";
+
+import useStore from "./useStore";
+import { User } from "../lib/types";
 
 const loginQuery = `
   query login($user: UserLoginInput!){
@@ -7,6 +10,13 @@ const loginQuery = `
       id
       token
       email
+      assets {
+        money
+        shares {
+          companyId
+          amount
+        }
+      }
     }
   }
 `;
@@ -23,28 +33,28 @@ const registerMutation = `
 
 type LoginVariables = { user: { email: string; password: string } };
 type LoginResponse = {
-  login: {
-    id: string;
-    token: string;
-    email: string;
-  };
+  login: User;
 };
 
 const useLogin = (
-  history: any,
+  history: any
 ): ((args: LoginVariables) => Promise<OperationResult<LoginResponse>>) => {
+  const setUser = useStore(({ setUser }) => setUser);
   const [_, loginFetch] = useMutation<LoginResponse, LoginVariables>(
-    loginQuery,
+    loginQuery
   );
 
   const login = async (
-    args: LoginVariables,
+    args: LoginVariables
   ): Promise<OperationResult<LoginResponse>> => {
     const response = await loginFetch(args);
+
     if (!response.error) {
-      response.data && localStorage.setItem('token', response.data.login.token);
-      history.push('/');
-      window.location.reload();
+      if (response.data) {
+        setUser && setUser(response.data.login);
+        localStorage.setItem("token", response.data.login.token);
+      }
+      history.push("/");
     }
     return response;
   };
@@ -64,20 +74,20 @@ type RegisterResponse = {
 };
 
 const useRegister = (
-  history: any,
+  history: any
 ): ((
-  args: RegisterVariables,
+  args: RegisterVariables
 ) => Promise<OperationResult<RegisterResponse>>) => {
   const [_, registerFetch] = useMutation<RegisterResponse, RegisterVariables>(
-    registerMutation,
+    registerMutation
   );
 
   const register = async (
-    args: RegisterVariables,
+    args: RegisterVariables
   ): Promise<OperationResult<RegisterResponse>> => {
     const response = await registerFetch(args);
     if (!response.error) {
-      history.push('/auth/login');
+      history.push("/auth/login");
     }
     return response;
   };

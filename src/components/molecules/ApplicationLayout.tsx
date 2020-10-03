@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter } from "react-router-dom";
 
-import isLoggedIn from "../../lib/isLoggedIn";
 import SimpleAppBar from "../atoms/SimpleAppBar";
 import SimpleDrawer from "../atoms/SimpleDrawer";
 import MainRoute from "../../routes/MainRoute";
+
+import useSubscribedUser from "../../hooks/useSubscribedUser";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -27,15 +28,16 @@ const useStyles = makeStyles((theme) => ({
 
 const ApplicationLayout = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState<boolean>(false);
-  const isUserLoggedIn = isLoggedIn();
+  const [user, isUserLoggedIn] = useSubscribedUser();
+
   const styles = useStyles();
   return (
     <BrowserRouter>
       <SimpleAppBar
-        isDrawerOpened={isUserLoggedIn && isDrawerOpened}
+        isDrawerOpened={!!isUserLoggedIn && isDrawerOpened}
         setIsDrawerOpened={setIsDrawerOpened}
       />
-      {isUserLoggedIn && (
+      {!!isUserLoggedIn && (
         <SimpleDrawer
           setIsDrawerOpened={setIsDrawerOpened}
           isDrawerOpened={isDrawerOpened}

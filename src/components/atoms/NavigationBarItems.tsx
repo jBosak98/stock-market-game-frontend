@@ -12,10 +12,16 @@ import { Link as NavLink } from "react-router-dom";
 
 import "./NavigationBarItems.scss";
 import logoutAction from "../../actions/logoutAction";
+import useStore from "../../hooks/useStore";
 
 const NavigationBarItems = () => {
   const [selectedItem, setSelectedItem] = useState(document.location.pathname);
+  const setUser = useStore(({ setUser }) => setUser);
 
+  const logout = () => {
+    setUser && setUser(undefined);
+    logoutAction();
+  };
   return (
     <div className="NavigationBarItems">
       <_MenuItem
@@ -64,12 +70,7 @@ const NavigationBarItems = () => {
       </_MenuItem>
       <div className="navbar-space" />
       <div className="bottom-items">
-        <_MenuItem
-          selectedItem={""}
-          onClick={logoutAction}
-          to="/"
-          label="Logout"
-        >
+        <_MenuItem selectedItem={""} onClick={logout} to="/" label="Logout">
           <ExitToAppIcon />
         </_MenuItem>
       </div>

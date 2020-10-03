@@ -26,16 +26,15 @@ const TransactionSection = ({ match, history }: TransactionSectionProps) => {
   }
   if (fetching) return <Loader />;
   console.log(data);
+
+  const topbar = TransactionSectionHeader({
+    ticker,
+    name: data.getCompany?.name,
+  });
+
   return (
     <ContentContainer>
-      <SimplePaper
-        topbar={
-          <TransactionSectionHeader
-            ticker={ticker}
-            name={data.getCompany?.name}
-          />
-        }
-      />
+      <SimplePaper topbar={topbar} />
     </ContentContainer>
   );
 };

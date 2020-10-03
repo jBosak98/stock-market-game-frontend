@@ -1,5 +1,6 @@
-import React, { MouseEvent } from "react";
-import { makeStyles, Grid, Link } from "@material-ui/core";
+import React from "react";
+import { makeStyles, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import ConditionalWrapper from "./ConditionalWrapper";
 
@@ -25,9 +26,8 @@ const useElementStyles = makeStyles((theme) => ({
     },
   },
   link: {
-    "&:hover": {
-      textDecoration: "none",
-    },
+    textDecoration: "none",
+    color: "inherit",
   },
 }));
 
@@ -51,7 +51,7 @@ const RowElement = ({
       <ConditionalWrapper
         condition={!!link}
         wrapper={(children: React.ReactNode) => (
-          <Link className={styles.link} color="inherit" href={link}>
+          <Link className={styles.link} to={link || "/"}>
             {children}
           </Link>
         )}

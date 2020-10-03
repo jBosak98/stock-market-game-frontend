@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import isLoggedIn from "../lib/isLoggedIn";
+import useSubscribedUser from "../hooks/useSubscribedUser";
 
 type PrivateRouteProps = {
   component: React.FC;
@@ -12,16 +12,13 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...restProps
 }) => {
-  const isUserLoggedIn = isLoggedIn();
+  const [user, isLoggedIn] = useSubscribedUser();
+
   return (
     <Route
       {...restProps}
       render={(props: any) =>
-        isUserLoggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/auth/login" />
-        )
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/auth/login" />
       }
     />
   );
