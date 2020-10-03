@@ -13,23 +13,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type KeyValueRowProps = {
-  key: string;
+  dataKey: string;
   value: string | number | undefined;
 };
-const KeyValueRow = ({ key, value }: KeyValueRowProps) => {
+const KeyValueRow = ({ dataKey, value }: KeyValueRowProps) => {
   const styles = useStyles();
   return (
     <Grid
       container
       item
-      key={key}
+      key={dataKey}
       justify="space-between"
       direction="row"
       className={styles.keyValueRow}
     >
       <Grid sm={5} item>
         <Typography color="inherit" display="inline" variant="body1">
-          {key}
+          {dataKey}
         </Typography>
       </Grid>
       <Grid sm={5} item>

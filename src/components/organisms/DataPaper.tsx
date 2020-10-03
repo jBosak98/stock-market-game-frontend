@@ -15,7 +15,7 @@ const DataPaper = ({ data, title }: DataPaperProps) => {
       {Object.entries(data)
         .flatMap(mapData)
         .map(([key, value]) => (
-          <KeyValueRow key={key} value={value} />
+          <KeyValueRow dataKey={key} key={key} value={value} />
         ))}
     </SimpleTitledPaper>
   );
