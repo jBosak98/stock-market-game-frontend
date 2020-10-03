@@ -1,11 +1,16 @@
 import React from "react";
 import { Grid, Button, makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import SimplePaper from "../atoms/SimplePaper";
 
 const useStyles = makeStyles(() => ({
   transactionButton: {
     marginRight: "auto",
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
   },
 }));
 type CompanyDetailsHeaderProps = {
@@ -18,15 +23,16 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
     <SimplePaper topbar={<>{ticker}</>}>
       <Grid container direction="column">
         miejsce na chart
-        <Button
-          className={styles.transactionButton}
-          type="submit"
-          variant="contained"
-          color="primary"
-          href={`/company/${ticker}/transaction`}
-        >
-          MAKE A TRANSACTION
-        </Button>
+        <Link className={styles.link} to={`/company/${ticker}/transaction`}>
+          <Button
+            className={styles.transactionButton}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            MAKE A TRANSACTION
+          </Button>
+        </Link>
       </Grid>
     </SimplePaper>
   );

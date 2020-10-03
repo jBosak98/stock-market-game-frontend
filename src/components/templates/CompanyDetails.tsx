@@ -33,7 +33,7 @@ const CompanyDetails = ({ match, history }: CompanyDetailsProps) => {
     <>
       <ContentContainer>
         <CompanyDetailsHeader ticker={ticker} />
-        <Grid container justify="space-around" direction="row">
+        <Grid container justify="center" direction="row">
           <DataPaper data={getCompany} title="key data" />
           <DataPaper data={financials} />
         </Grid>
