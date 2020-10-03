@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import isLoggedIn from "../lib/isLoggedIn";
+import useSubscribedUser from "../hooks/useSubscribedUser";
 
 type PublicRouteProps = {
   component: React.FC;
@@ -9,12 +9,13 @@ type PublicRouteProps = {
   path: string;
 };
 const PublicRoute: React.FC<any> = ({ component: Component, ...restProps }) => {
-  const isUserLoggedIn = isLoggedIn();
+  const [user, isLoggedIn] = useSubscribedUser();
+
   return (
     <Route
       {...restProps}
       render={(props: any) =>
-        isUserLoggedIn ? <Redirect to="/" /> : <Component {...props} />
+        isLoggedIn ? <Redirect to="/" /> : <Component {...props} />
       }
     />
   );
