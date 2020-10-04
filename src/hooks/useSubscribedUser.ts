@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import isLoggedIn from "../lib/isLoggedIn";
-import useStore, { useRefreshUser } from "../hooks/useStore";
+import useUser, { useRefreshUser } from "../hooks/useUser";
 import { User } from "../lib/types";
 
 const useSubscribedUser = () => {
@@ -12,7 +12,7 @@ const useSubscribedUser = () => {
 
   useEffect(
     () =>
-      useStore.subscribe(
+      useUser.subscribe(
         (user: User | undefined | null) => setUserState(user || undefined),
         (state) => state.user
       ),
