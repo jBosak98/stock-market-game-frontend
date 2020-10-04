@@ -3,6 +3,7 @@ import React from "react";
 import "./App.scss";
 import ApplicationLayout from "./components/molecules/ApplicationLayout";
 import { ThemeModeProvider } from "./contexts/ThemeModeContext";
+import { UserContextProvider } from "./contexts/UserContext";
 import { AlertContextProvider } from "./contexts/AlertContext";
 import { createClient, Provider } from "urql";
 
@@ -14,7 +15,9 @@ const App = () => {
       <Provider value={client}>
         <ThemeModeProvider>
           <AlertContextProvider>
-            <ApplicationLayout />
+            <UserContextProvider>
+              <ApplicationLayout />
+            </UserContextProvider>
           </AlertContextProvider>
         </ThemeModeProvider>
       </Provider>

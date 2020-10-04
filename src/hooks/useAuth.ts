@@ -1,7 +1,7 @@
 import { useMutation, OperationResult } from "urql";
 import { useHistory } from "react-router-dom";
 
-import useUser from "./useUser";
+import { useUserContext } from "../contexts/UserContext";
 import { User } from "../lib/types";
 
 const loginQuery = `
@@ -39,7 +39,7 @@ type LoginResponse = {
 const useLogin = (
   history: any
 ): ((args: LoginVariables) => Promise<OperationResult<LoginResponse>>) => {
-  const setUser = useUser(({ setUser }) => setUser);
+  const setUser = useUserContext()(({ setUser }) => setUser);
   const [_, loginFetch] = useMutation<LoginResponse, LoginVariables>(
     loginQuery
   );
