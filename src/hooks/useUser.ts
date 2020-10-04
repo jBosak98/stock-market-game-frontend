@@ -8,7 +8,7 @@ export type Store = {
   user?: User;
   setUser: (user?: User) => any;
 };
-const useStore = create<Store>(
+const useUser = create<Store>(
   devtools((set) => ({
     user: undefined,
     setUser: (user) => set({ user }, true),
@@ -16,7 +16,7 @@ const useStore = create<Store>(
 );
 
 export const useRefreshUser = () => {
-  const setUser = useStore(({ setUser }) => setUser);
+  const setUser = useUser(({ setUser }) => setUser);
   const [{ data, fetching }] = useQuery<User>({ query: meQuery });
   return () =>
     new Promise<User>((resolve) => !fetching && resolve(data)).then((user) => {
@@ -42,4 +42,4 @@ const meQuery = `
   }
 `;
 
-export default useStore;
+export default useUser;
