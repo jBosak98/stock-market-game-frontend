@@ -12,11 +12,12 @@ import { Link as NavLink } from "react-router-dom";
 
 import "./NavigationBarItems.scss";
 import logoutAction from "../../actions/logoutAction";
-import useUser from "../../hooks/useUser";
+import { useUserContext } from "../../contexts/UserContext";
 
 const NavigationBarItems = () => {
   const [selectedItem, setSelectedItem] = useState(document.location.pathname);
-  const setUser = useUser(({ setUser }) => setUser);
+
+  const setUser = useUserContext()(({ setUser }) => setUser);
 
   const logout = () => {
     setUser && setUser(undefined);
