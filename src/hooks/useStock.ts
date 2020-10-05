@@ -20,7 +20,7 @@ query getCompanies($skip: Int, $limit: Int) {
 
 export type Quote = {
   companyId: Number;
-  currentPrice: Number;
+  currentPrice: number;
   dailyChange: Number;
 };
 

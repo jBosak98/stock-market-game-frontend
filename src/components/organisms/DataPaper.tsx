@@ -1,24 +1,17 @@
 import React from "react";
 
-import mapData from "../../lib/mapData";
 import SimpleTitledPaper from "../molecules/SimpleTitledPaper";
-import KeyValueRow from "../atoms/KeyValueRow";
+import KeyValueRows from "../molecules/KeyValueRows";
 
 type DataPaperProps = {
   data: {};
   title?: string;
 };
 
-const DataPaper = ({ data, title }: DataPaperProps) => {
-  return (
-    <SimpleTitledPaper title={title}>
-      {Object.entries(data)
-        .flatMap(mapData)
-        .map(([key, value]) => (
-          <KeyValueRow dataKey={key} key={key} value={value} />
-        ))}
-    </SimpleTitledPaper>
-  );
-};
+const DataPaper = ({ data, title }: DataPaperProps) => (
+  <SimpleTitledPaper title={title}>
+    <KeyValueRows data={data} />
+  </SimpleTitledPaper>
+);
 
 export default DataPaper;

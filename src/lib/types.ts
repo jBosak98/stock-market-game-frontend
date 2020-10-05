@@ -10,3 +10,7 @@ export type User = {
     }[];
   };
 };
+
+export type ShareTransactionRequest = { amount: number; ticker: string };
+
+export type ShareTransactionResult = { buyShare: User };
