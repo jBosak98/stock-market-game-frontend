@@ -7,8 +7,18 @@ import { UserContextProvider } from "./contexts/UserContext";
 import { AlertContextProvider } from "./contexts/AlertContext";
 import { createClient, Provider } from "urql";
 
+const getToken = () => localStorage.getItem("token");
+
 const App = () => {
-  const client = createClient({ url: "http://localhost:8080/graphql" });
+  const client = createClient({
+    url: "http://localhost:8080/graphql",
+    fetchOptions: () => {
+      const token = getToken();
+      return {
+        headers: { authorization: token ? `Bearer ${token}` : "" },
+      };
+    },
+  });
 
   return (
     <div className="App">

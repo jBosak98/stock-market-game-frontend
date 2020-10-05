@@ -2,6 +2,7 @@ import create from "zustand";
 import { useQuery } from "urql";
 import { devtools } from "zustand/middleware";
 import { useUserContext } from "../contexts/UserContext";
+import isLoggedIn from "../lib/isLoggedIn";
 
 import { User } from "../lib/types";
 
@@ -10,14 +11,25 @@ export type UserStore = {
   setUser: (user?: User) => any;
 };
 const useUser = () => {
-  const [{ data }] = useQuery<User>({ query: meQuery });
+  const [{ data, fetching }] = useQuery<{ me: User }>({ query: meQuery });
 
   const store = create<UserStore>(
     devtools((set) => ({
-      user: data,
+      user: data?.me,
       setUser: (user) => set({ user }, true),
     }))
   );
+  const { user, setUser } = store();
+  isLoggedIn() &&
+    !user?.token &&
+    new Promise<{ me?: User }>((resolve) => !fetching && resolve(data)).then(
+      (user) => {
+        user && setUser(user.me);
+        const { token = null } = user?.me || {};
+        token && localStorage.setItem("token", token);
+      }
+    );
+
   return store;
 };
 
@@ -27,7 +39,8 @@ export const useRefreshUser = () => {
   return () =>
     new Promise<User>((resolve) => !fetching && resolve(data)).then((user) => {
       setUser && setUser(user);
-      localStorage.setItem("token", user.token);
+      const { token } = user || {};
+      token && localStorage.setItem("token", token);
       return user;
     });
 };
