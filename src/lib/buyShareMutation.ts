@@ -1,6 +1,6 @@
 const buyShareMutation = `
-    mutation buyShare {
-        buyShare(amount: 1, ticker: "AAPL") {
+    mutation buyShare($amount:Int!, $ticker:String!) {
+        buyShare(amount:$amount, ticker:$ticker) {
           id
           email
           token
