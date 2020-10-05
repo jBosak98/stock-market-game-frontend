@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Button, makeStyles } from "@material-ui/core";
+import { useMutation } from "urql";
 
 import SimpleTitledPaper from "../molecules/SimpleTitledPaper";
 import KeyValueRows from "../molecules/KeyValueRows";
 import NumberInput from "../atoms/NumberInput";
-import useBuyShare from "../../hooks/useBuyShare";
+import {
+  ShareTransactionRequest,
+  ShareTransactionResult,
+} from "../../lib/types";
+import buyShareMutation from "../../lib/buyShareMutation";
 
 type BuyShareProps = {
   sharePrice: number;
@@ -18,9 +23,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
+  const [buyShareResult, buyShare] = useMutation<
+    ShareTransactionResult,
+    ShareTransactionRequest
+  >(buyShareMutation);
   const styles = useStyles();
   const [shareAmount, setShareAmount] = useState<undefined | number>(undefined);
-  const { buyShare } = useBuyShare();
   const totalCost = sharePrice * Number(shareAmount) || 0;
 
   const dataToDisplay = {
@@ -43,9 +51,7 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
         disabled={!Number(shareAmount)}
         variant="contained"
         color="primary"
-        onClick={() =>
-          console.log(buyShare({ amount: Number(shareAmount), ticker }))
-        }
+        onClick={() => buyShare({ amount: Number(shareAmount), ticker })}
       >
         SUBMIT
       </Button>
