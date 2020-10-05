@@ -6,9 +6,9 @@ import SimplePaper from "../atoms/SimplePaper";
 import useCompany from "../../hooks/useCompany";
 import Loader from "../atoms/Loader";
 import TransactionSectionHeader from "../molecules/TransactionSectionHeader";
-import SimpleTitledPaper from "../molecules/SimpleTitledPaper";
 import { useUserContext } from "../../contexts/UserContext";
 import BuyShare from "../organisms/BuyShare";
+import SellShare from "../organisms/SellShare";
 
 type TransactionSectionProps = {
   children?: React.ReactNode;
@@ -34,6 +34,10 @@ const TransactionSection = ({ match, history }: TransactionSectionProps) => {
 
   const sharePrice = data.getCompany?.quote.currentPrice || 0;
   const availableToInvest = user?.assets?.money || 0;
+  const availableSharesToSell =
+    user?.assets.shares.find(
+      ({ companyId }) => companyId === data?.getCompany?.id
+    )?.amount || 0;
 
   const topbar = TransactionSectionHeader({
     ticker,
@@ -49,7 +53,12 @@ const TransactionSection = ({ match, history }: TransactionSectionProps) => {
           availableToInvest={availableToInvest}
           sharePrice={sharePrice}
         />
-        <SimpleTitledPaper title={"Sell"}>dx</SimpleTitledPaper>
+        <SellShare
+          ticker={ticker}
+          balance={availableToInvest}
+          availableShares={availableSharesToSell}
+          sharePrice={sharePrice}
+        />
       </Grid>
     </ContentContainer>
   );

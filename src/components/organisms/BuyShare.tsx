@@ -30,6 +30,7 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
   const styles = useStyles();
   const [shareAmount, setShareAmount] = useState<undefined | number>(undefined);
   const totalCost = sharePrice * Number(shareAmount) || 0;
+  const balanceAfterTransaction = availableToInvest - totalCost;
 
   const dataToDisplay = {
     sharePrice,
@@ -44,7 +45,7 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
           setShareAmount(Number(target.value) || undefined)
         }
       />
-      <KeyValueRows data={{ totalCost }} />
+      <KeyValueRows data={{ totalCost, balanceAfterTransaction }} />
       <Button
         className={styles.button}
         type="submit"
