@@ -40,6 +40,12 @@ const mapData = ([key, value]: any[]): string[][] => {
       return [["Dividend per share Annual", value]];
     case "beta":
       return [["Beta", value]];
+    case "sharePrice":
+      return [["price per share", `${value}$`]];
+    case "availableToInvest":
+      return [["Available to invest", `${value}$`]];
+    case "totalCost":
+      return [["Total cost", `${value.toFixed(2)}$`]];
     default:
       return [];
   }
