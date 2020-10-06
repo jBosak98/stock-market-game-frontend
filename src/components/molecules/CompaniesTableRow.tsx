@@ -1,9 +1,7 @@
 import React from "react";
 import { makeStyles, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { isUndefined } from "lodash";
 
-import { Company } from "../../lib/types";
-import Button from "@material-ui/core/Button";
 import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,11 +14,16 @@ const useStyles = makeStyles((theme) => ({
     color: "inherit",
   },
 }));
-
-const CompaniesTableRow = ({ company }: { company: Company }) => {
+type CompaniesTableRowProps = {
+  rows: {
+    text?: String | Number;
+    optional: boolean;
+    link?: string;
+    component?: JSX.Element;
+  }[];
+};
+const CompaniesTableRow = ({ rows }: CompaniesTableRowProps) => {
   const styles = useStyles();
-  const { id, name, ticker, quote } = company;
-  const { currentPrice, dailyChange } = quote;
 
   return (
     <Grid
@@ -28,23 +31,13 @@ const CompaniesTableRow = ({ company }: { company: Company }) => {
       spacing={3}
       alignContent="space-around"
       container
-      key={id}
       direction="row"
     >
-      <RowElement link={`/company/${ticker}`} optional>
-        {ticker}
-      </RowElement>
-      <RowElement link={`/company/${ticker}`}>{name}</RowElement>
-      <RowElement>{dailyChange}</RowElement>
-      <RowElement optional>{0.0}</RowElement>
-      <RowElement>{currentPrice}</RowElement>
-      <RowElement optional>
-        <Link className={styles.link} to={`/company/${ticker}/transaction`}>
-          <Button type="submit" variant="contained" color="primary">
-            TRANSACTION
-          </Button>
-        </Link>
-      </RowElement>
+      {rows.map(({ text, optional, component, link }, index) => (
+        <RowElement link={link} optional={optional} key={index}>
+          {isUndefined(text) ? component : text}
+        </RowElement>
+      ))}
     </Grid>
   );
 };

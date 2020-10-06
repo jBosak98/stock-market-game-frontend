@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 
 import SimplePaper from "../atoms/SimplePaper";
 import { Company } from "../../lib/types";
@@ -10,7 +10,7 @@ import CompaniesTableHeader from "../molecules/CompaniesTableHeader";
 type CompaniesTableProps = { companies: Company[] };
 
 const CompaniesTable = ({ companies }: CompaniesTableProps) => {
-  const rows = [
+  const headerRows = [
     { text: "SYMBOL", optional: true },
     { text: "NAME", optional: false },
     { text: "CHANGE", optional: false },
@@ -20,10 +20,27 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
   return (
     <SimplePaper topbar={<CompaniesTableTopbar />}>
       <Grid>
-        <CompaniesTableHeader rows={rows} />
-        {companies?.map((company) => (
-          <CompaniesTableRow key={company.id} company={company} />
-        ))}
+        <CompaniesTableHeader rows={headerRows} />
+        {companies?.map(({ id, name, ticker, quote }) => {
+          const { currentPrice, dailyChange } = quote;
+          const rows = [
+            { text: ticker, optional: true, link: `/company/${ticker}` },
+            { text: name, optional: false, link: `/company/${ticker}` },
+            { text: dailyChange, optional: false },
+            { text: 0.0, optional: true },
+            { text: currentPrice, optional: false },
+            {
+              component: (
+                <Button type="submit" variant="contained" color="primary">
+                  TRANSACTION
+                </Button>
+              ),
+              optional: true,
+              link: `/company/${ticker}/transaction`,
+            },
+          ];
+          return <CompaniesTableRow rows={rows} key={id} />;
+        })}
       </Grid>
     </SimplePaper>
   );
