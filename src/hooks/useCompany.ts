@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import { Quote } from "./useStock";
+import { Quote } from "../lib/types";
 
 const companyQuery = `
 query getCompanies($ticker: String!) {

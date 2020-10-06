@@ -35,14 +35,16 @@ const useUser = () => {
 
 export const useRefreshUser = () => {
   const setUser = useUserContext()(({ setUser }) => setUser);
-  const [{ data, fetching }] = useQuery<User>({ query: meQuery });
+  const [{ data, fetching }] = useQuery<{ me: User }>({ query: meQuery });
   return () =>
-    new Promise<User>((resolve) => !fetching && resolve(data)).then((user) => {
-      setUser && setUser(user);
-      const { token } = user || {};
-      token && localStorage.setItem("token", token);
-      return user;
-    });
+    new Promise<{ me: User }>((resolve) => !fetching && resolve(data)).then(
+      ({ me }) => {
+        setUser && setUser(me);
+        const { token } = me || {};
+        token && localStorage.setItem("token", token);
+        return me;
+      }
+    );
 };
 const meQuery = `
   query me {
@@ -55,6 +57,15 @@ const meQuery = `
         shares {
           companyId
           amount
+          company{
+            id
+            ticker
+            name
+            quote{
+              dailyChange
+              currentPrice
+            }
+          }
         }
       }
     }

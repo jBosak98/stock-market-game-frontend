@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CompaniesTableHeader = () => {
+type CompaniesTableHeaderProps = {
+  rows: { text: string; optional: boolean }[];
+};
+
+const CompaniesTableHeader = ({ rows }: CompaniesTableHeaderProps) => {
   const styles = useStyles();
   return (
     <>
@@ -25,17 +29,15 @@ const CompaniesTableHeader = () => {
         container
         direction="row"
       >
-        <HeaderRowElement className={styles.element} optional>
-          SYMBOL
-        </HeaderRowElement>
-        <HeaderRowElement className={styles.element}>NAME</HeaderRowElement>
-        <HeaderRowElement className={styles.element}>CHANGE</HeaderRowElement>
-        <HeaderRowElement className={styles.element} optional>
-          CHANGE PERCENTAGE
-        </HeaderRowElement>
-        <HeaderRowElement className={styles.element}>
-          LAST PRICE
-        </HeaderRowElement>
+        {rows.map(({ text, optional }) => (
+          <HeaderRowElement
+            key={text}
+            className={styles.element}
+            optional={optional}
+          >
+            {text}
+          </HeaderRowElement>
+        ))}
       </Grid>
     </>
   );

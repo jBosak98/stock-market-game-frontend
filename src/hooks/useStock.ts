@@ -1,4 +1,5 @@
 import { useQuery } from "urql";
+import { Company, Quote } from "../lib/types";
 
 const stockQuery = `
 query getCompanies($skip: Int, $limit: Int) {
@@ -17,19 +18,6 @@ query getCompanies($skip: Int, $limit: Int) {
     }
   }
 `;
-
-export type Quote = {
-  companyId: Number;
-  currentPrice: number;
-  dailyChange: Number;
-};
-
-export type Company = {
-  id: number;
-  name: String;
-  ticker: String;
-  quote: Quote;
-};
 
 type StockQueryResult = {
   companiesConnection: {

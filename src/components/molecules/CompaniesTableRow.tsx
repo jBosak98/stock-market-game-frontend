@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { Company } from "../../hooks/useStock";
+import { Company } from "../../lib/types";
 import Button from "@material-ui/core/Button";
 import RowElement from "../atoms/RowElement";
 

@@ -15,6 +15,15 @@ const loginQuery = `
         shares {
           companyId
           amount
+          company{
+            id
+            ticker
+            name
+            quote{
+              dailyChange
+              currentPrice
+            }
+          }
         }
       }
     }
