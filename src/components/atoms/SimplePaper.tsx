@@ -7,7 +7,10 @@ import hexToRgba from "hex-to-rgba";
 const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
   paper: {
     padding: "20px",
+    maxWidth: "1400px",
     margin: "20px",
+    marginTop: "0px",
+    position: "relative",
     paddingTop: (props) => (props.topbar ? "50px" : "20px"),
     [theme.breakpoints.down("md")]: {
       paddingLeft: "10px",
@@ -18,10 +21,15 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
   },
   topbar: {
     height: "100%",
-    display: "inline-block",
+    maxWidth: "1200px",
+    width: "80%",
+    position: "relative",
     marginTop: "-20px",
-    padding: "15px",
+    marginLeft: "30px",
     marginRight: "0px",
+    padding: "15px",
+    zIndex: 1,
+
     borderRadius: "3px",
     background: theme.palette.primary.main,
     boxShadow: `0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px ${hexToRgba(
@@ -36,9 +44,6 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     },
   },
   header: {
-    display: "inline-block",
-    position: "relative",
-    width: "100%",
     height: "60px",
     left: "40px",
     top: "40px",
