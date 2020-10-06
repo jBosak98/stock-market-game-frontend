@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Grid } from "@material-ui/core";
 
+import { Sm } from "../../lib/types";
 import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
 
 type CompaniesTableHeaderProps = {
   rows: { text: string; optional: boolean }[];
+  sm?: Sm;
 };
 
-const CompaniesTableHeader = ({ rows }: CompaniesTableHeaderProps) => {
+const CompaniesTableHeader = ({ rows, sm }: CompaniesTableHeaderProps) => {
   const styles = useStyles();
   return (
     <>
@@ -34,6 +36,7 @@ const CompaniesTableHeader = ({ rows }: CompaniesTableHeaderProps) => {
             key={text}
             className={styles.element}
             optional={optional}
+            sm={sm || "auto"}
           >
             {text}
           </HeaderRowElement>
@@ -47,13 +50,15 @@ type HeaderRowElementProps = {
   children: React.ReactNode;
   className?: string;
   optional?: boolean;
+  sm?: Sm;
 };
 const HeaderRowElement = ({
   optional,
   children,
   className,
+  sm,
 }: HeaderRowElementProps) => (
-  <RowElement className={className} optional={optional}>
+  <RowElement sm={sm} className={className} optional={optional}>
     <Typography variant="subtitle1" color="primary">
       {children}
     </Typography>

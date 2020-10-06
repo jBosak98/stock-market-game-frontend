@@ -7,7 +7,7 @@ export type User = {
     shares: {
       companyId: number;
       amount: number;
-      company: Company[];
+      company: Company;
     }[];
   };
 };
@@ -23,6 +23,24 @@ export type Company = {
   ticker: String;
   quote: Quote;
 };
+
+export type Sm =
+  | boolean
+  | "auto"
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | undefined;
+
 export type ShareTransactionRequest = { amount: number; ticker: string };
 
 export type ShareTransactionResult = { buyShare: User };

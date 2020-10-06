@@ -3,12 +3,14 @@ import { makeStyles, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import ConditionalWrapper from "./ConditionalWrapper";
+import { Sm } from "../../lib/types";
 
 type RowElementProps = {
   children: React.ReactNode;
   className?: string;
   optional?: boolean;
   link?: string | undefined;
+  sm?: Sm;
 };
 
 const useElementStyles = makeStyles((theme) => ({
@@ -36,6 +38,7 @@ const RowElement = ({
   className,
   optional = false,
   link,
+  sm,
 }: RowElementProps) => {
   const styles = useElementStyles();
   return (
@@ -43,8 +46,7 @@ const RowElement = ({
       className={`${className} ${styles.element} ${(optional &&
         styles.optional) ||
         ""}`}
-      xs={4}
-      sm={4}
+      sm={sm || 4}
       md={2}
       item
     >

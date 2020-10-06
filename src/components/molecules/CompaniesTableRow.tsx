@@ -15,6 +15,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 type CompaniesTableRowProps = {
+  sm?:
+    | boolean
+    | "auto"
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | undefined;
   rows: {
     text?: String | Number;
     optional: boolean;
@@ -22,7 +38,7 @@ type CompaniesTableRowProps = {
     component?: JSX.Element;
   }[];
 };
-const CompaniesTableRow = ({ rows }: CompaniesTableRowProps) => {
+const CompaniesTableRow = ({ rows, sm }: CompaniesTableRowProps) => {
   const styles = useStyles();
 
   return (
@@ -34,7 +50,7 @@ const CompaniesTableRow = ({ rows }: CompaniesTableRowProps) => {
       direction="row"
     >
       {rows.map(({ text, optional, component, link }, index) => (
-        <RowElement link={link} optional={optional} key={index}>
+        <RowElement sm={sm} link={link} optional={optional} key={index}>
           {isUndefined(text) ? component : text}
         </RowElement>
       ))}
