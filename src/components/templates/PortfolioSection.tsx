@@ -1,15 +1,20 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
+import { useQuery } from "urql";
 
 import CompaniesTableHeader from "../molecules/CompaniesTableHeader";
-import { useUserContext } from "../../contexts/UserContext";
+import { User } from "../../lib/types";
+import { meQuery } from "../../hooks/useUser";
 import ContentContainer from "../atoms/ContentContainer";
 import SimplePaper from "../atoms/SimplePaper";
 import CompaniesTableRow from "../molecules/CompaniesTableRow";
 
 function PortfolioSection() {
-  const user = useUserContext()((state) => state.user);
+  const [{ data, fetching, error }] = useQuery<{ me: User }>({
+    query: meQuery,
+  });
+  const user = data?.me;
   console.log(user);
   const headerRows = [
     { text: "SYMBOL", optional: true },
@@ -35,8 +40,8 @@ function PortfolioSection() {
             const { name, ticker, quote } = company;
             const { currentPrice, dailyChange } = quote;
             const rows = [
-              { text: ticker, optional: true },
-              { text: name, optional: false },
+              { text: ticker, optional: true, link: `/company/${ticker}` },
+              { text: name, optional: false, link: `/company/${ticker}` },
               { text: amount, optional: false },
               { text: dailyChange, optional: false },
               { text: 0.0, optional: true },

@@ -11,7 +11,9 @@ export type UserStore = {
   setUser: (user?: User) => any;
 };
 const useUser = () => {
-  const [{ data, fetching }] = useQuery<{ me: User }>({ query: meQuery });
+  const [{ data, fetching, error }] = useQuery<{ me: User }>({
+    query: meQuery,
+  });
 
   const store = create<UserStore>(
     devtools((set) => ({
@@ -22,13 +24,13 @@ const useUser = () => {
   const { user, setUser } = store();
   isLoggedIn() &&
     !user?.token &&
-    new Promise<{ me?: User }>((resolve) => !fetching && resolve(data)).then(
-      (user) => {
+    new Promise<{ me?: User }>((resolve) => !fetching && resolve(data))
+      .then((user) => {
         user && setUser(user.me);
         const { token = null } = user?.me || {};
         token && localStorage.setItem("token", token);
-      }
-    );
+      })
+      .catch((error) => console.log(error));
 
   return store;
 };
@@ -37,16 +39,21 @@ export const useRefreshUser = () => {
   const setUser = useUserContext()(({ setUser }) => setUser);
   const [{ data, fetching }] = useQuery<{ me: User }>({ query: meQuery });
   return () =>
-    new Promise<{ me: User }>((resolve) => !fetching && resolve(data)).then(
-      ({ me }) => {
-        setUser && setUser(me);
-        const { token } = me || {};
-        token && localStorage.setItem("token", token);
-        return me;
+    new Promise<{ me: User } | undefined>(
+      (resolve) => !fetching && resolve(data)
+    ).then((user) => {
+      if (!user) {
+        localStorage.setItem("token", "");
+        return undefined;
       }
-    );
+      const { me } = user;
+      setUser && setUser(me);
+      const { token } = me || {};
+      token && localStorage.setItem("token", token);
+      return me;
+    });
 };
-const meQuery = `
+export const meQuery = `
   query me {
     me {
       id
