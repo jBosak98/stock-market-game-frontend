@@ -8,7 +8,7 @@ import Loader from "../atoms/Loader";
 
 function StockSection() {
   const { data } = useStock();
-  const companies = data?.companiesConnection.companies;
+  const { companies = [] } = data?.companiesConnection || {};
   return (
     <ContentContainer>
       {(companies && <CompaniesTable companies={companies} />) || <Loader />}
