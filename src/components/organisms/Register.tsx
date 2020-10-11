@@ -24,7 +24,7 @@ const Register = () => {
       user: data,
     };
     const response = await register(registerInput);
-    showErrors(response, addAlert);
+    showErrors(response, addAlert, "Account successfully created");
   };
   return (
     <FormContainer
