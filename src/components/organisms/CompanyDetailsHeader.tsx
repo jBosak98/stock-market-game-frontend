@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Button, makeStyles } from "@material-ui/core";
+import { Grid, Button, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import SimplePaper from "../atoms/SimplePaper";
@@ -20,7 +20,13 @@ type CompanyDetailsHeaderProps = {
 const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const styles = useStyles();
   return (
-    <SimplePaper topbar={<>{ticker}</>}>
+    <SimplePaper
+      topbar={
+        <Typography variant="h4" color="textSecondary">
+          {ticker}
+        </Typography>
+      }
+    >
       <Grid container direction="column">
         miejsce na chart
         <Link className={styles.link} to={`/company/${ticker}/transaction`}>

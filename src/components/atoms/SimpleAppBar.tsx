@@ -56,7 +56,7 @@ const SimpleAppBar = ({
           <Typography
             component="h1"
             variant="h6"
-            color="textPrimary"
+            color="textSecondary"
             noWrap
             className={classes.typography}
           >

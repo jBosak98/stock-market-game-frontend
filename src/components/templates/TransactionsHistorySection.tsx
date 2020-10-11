@@ -31,7 +31,7 @@ function TransactionsHistorySection() {
     <ContentContainer>
       <SimplePaper
         topbar={
-          <Typography variant="h4" color="textPrimary">
+          <Typography variant="h4" color="textSecondary">
             Transactions History
           </Typography>
         }
