@@ -30,7 +30,7 @@ const Login = () => {
         password: data.password,
       },
     });
-    showErrors(response, addAlert);
+    showErrors(response, addAlert, "Logged in successfully");
   };
 
   return (
