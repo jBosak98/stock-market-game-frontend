@@ -1,9 +1,7 @@
-import Alert from "@material-ui/lab/Alert";
 import AppBar from "@material-ui/core/AppBar";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import MenuIcon from "@material-ui/icons/Menu";
-import React from "react";
-import Slide from "@material-ui/core/Slide";
+import React, { useCallback } from "react";
 import Typography from "@material-ui/core/Typography";
 import classnames from "classnames";
 import { Toolbar, IconButton } from "@material-ui/core";
@@ -12,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./SimpleAppBar.scss";
 import { useAlertContext } from "../../contexts/AlertContext";
 import { useThemeMode } from "../../contexts/ThemeModeContext";
+import AlertsContainer from "../atoms/AlertsContainer";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -37,10 +36,18 @@ const SimpleAppBar = ({
   isDrawerOpened: boolean;
   setIsDrawerOpened: (drawState: boolean) => unknown;
 }) => {
-  const { alerts } = useAlertContext();
+  const { alerts, addAlert } = useAlertContext();
   const classes = useStyles();
 
   const { darkMode, setDarkMode } = useThemeMode();
+
+  const onThemeModeChange = useCallback(() => {
+    setDarkMode(!darkMode);
+    addAlert({
+      serverity: "info",
+      message: `Changed to ${darkMode ? "light mode" : "dark mode"}`,
+    });
+  }, []);
   return (
     <div className={classnames("SimpleAppBar", { isOpen: isDrawerOpened })}>
       <AppBar className={classes.appBar}>
@@ -63,26 +70,8 @@ const SimpleAppBar = ({
             Stock Market Game
           </Typography>
 
-          <div className={classes.alertContainer}>
-            {alerts.map(({ collapse, content }, index) => (
-              <Slide
-                direction="left"
-                in={collapse}
-                key={index}
-                mountOnEnter
-                unmountOnExit
-              >
-                <Alert
-                  className={classes.alert}
-                  variant="filled"
-                  severity={content.serverity}
-                >
-                  {content.message}
-                </Alert>
-              </Slide>
-            ))}
-          </div>
-          <IconButton onClick={() => setDarkMode(!darkMode)}>
+          <AlertsContainer alerts={alerts} />
+          <IconButton onClick={onThemeModeChange}>
             <Brightness4Icon />
           </IconButton>
         </Toolbar>

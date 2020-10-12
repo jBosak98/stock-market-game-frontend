@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter } from "react-router-dom";
 
-import SimpleAppBar from "../atoms/SimpleAppBar";
+import SimpleAppBar from "./SimpleAppBar";
 import SimpleDrawer from "../atoms/SimpleDrawer";
 import MainRoute from "../../routes/MainRoute";
 
