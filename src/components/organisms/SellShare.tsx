@@ -10,6 +10,8 @@ import {
 } from "../../lib/types";
 import NumberInput from "../atoms/NumberInput";
 import KeyValueRows from "../molecules/KeyValueRows";
+import { useAlertContext } from "../../contexts/AlertContext";
+import showErrors from "../../lib/showErrors";
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -32,11 +34,16 @@ const SellShare = ({
 }: SellShareProps) => {
   const [shareAmount, setShareAmount] = useState<undefined | number>(undefined);
   const styles = useStyles();
+  const { addAlert } = useAlertContext();
 
   const [sellShareResult, sellShare] = useMutation<
     ShareTransactionResult,
     ShareTransactionRequest
   >(sellShareMutation);
+  const onSubmit = async () => {
+    const response = await sellShare({ amount: Number(shareAmount), ticker });
+    showErrors(response, addAlert, "Shares successfully sold");
+  };
   const moneyToAdd = sharePrice * Number(shareAmount) || 0;
   const balanceAfterTransaction = balance + moneyToAdd;
   return (
@@ -55,7 +62,7 @@ const SellShare = ({
         disabled={!Number(shareAmount)}
         variant="contained"
         color="primary"
-        onClick={() => sellShare({ amount: Number(shareAmount), ticker })}
+        onClick={onSubmit}
       >
         SUBMIT
       </Button>
