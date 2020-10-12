@@ -1,5 +1,4 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import { useQuery } from "urql";
 
@@ -9,13 +8,14 @@ import { meQuery } from "../../hooks/useUser";
 import ContentContainer from "../atoms/ContentContainer";
 import SimplePaper from "../atoms/SimplePaper";
 import CompaniesTableRow from "../molecules/CompaniesTableRow";
+import PortfolioTopbar from "../atoms/PortfolioTopbar";
 
 function PortfolioSection() {
   const [{ data, fetching, error }] = useQuery<{ me: User }>({
     query: meQuery,
   });
+
   const user = data?.me;
-  console.log(user);
   const headerRows = [
     { text: "SYMBOL", optional: true },
     { text: "NAME", optional: false },
@@ -24,16 +24,11 @@ function PortfolioSection() {
     { text: "CHANGE PERCENTAGE", optional: true },
     { text: "LAST PRICE", optional: false },
   ];
-  const { shares = [] } = user?.assets || {};
+  const { shares = [], money = 0 } = user?.assets || {};
+
   return (
     <ContentContainer>
-      <SimplePaper
-        topbar={
-          <Typography variant="h4" color="textSecondary">
-            Portfolio
-          </Typography>
-        }
-      >
+      <SimplePaper topbar={<PortfolioTopbar money={money} />}>
         <Grid>
           <CompaniesTableHeader sm={3} rows={headerRows} />
           {shares.map(({ amount, companyId, company }) => {

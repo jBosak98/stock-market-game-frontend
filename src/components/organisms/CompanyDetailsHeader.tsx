@@ -3,6 +3,8 @@ import { Grid, Button, makeStyles, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import SimplePaper from "../atoms/SimplePaper";
+import { useUserContext } from "../../contexts/UserContext";
+import mapData from "../../lib/mapData";
 
 const useStyles = makeStyles(() => ({
   transactionButton: {
@@ -18,13 +20,22 @@ type CompanyDetailsHeaderProps = {
 };
 
 const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
+  const user = useUserContext()((store) => store.user);
+  const ownedShares =
+    user?.assets.shares.find((share) => share.company.ticker === ticker)
+      ?.amount || undefined;
   const styles = useStyles();
   return (
     <SimplePaper
       topbar={
-        <Typography variant="h4" color="textSecondary">
-          {ticker}
-        </Typography>
+        <>
+          <Typography variant="h4" color="textSecondary">
+            {ticker}
+          </Typography>
+          <Typography color="textSecondary">
+            {mapData(["ownedShares", ownedShares])}
+          </Typography>
+        </>
       }
     >
       <Grid container direction="column">
