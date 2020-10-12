@@ -47,7 +47,7 @@ const SimpleAppBar = ({
       serverity: "info",
       message: `Changed to ${darkMode ? "light mode" : "dark mode"}`,
     });
-  }, []);
+  }, [darkMode]);
   return (
     <div className={classnames("SimpleAppBar", { isOpen: isDrawerOpened })}>
       <AppBar className={classes.appBar}>
