@@ -22,6 +22,10 @@ export const useThemeMode = () => useContext(ThemeModeContext);
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
+    text: {
+      primary: "#b2b2b2",
+      secondary: "#e2e2e2",
+    },
     primary: {
       main: teal["500"],
       dark: teal["500"],
@@ -48,6 +52,10 @@ const darkTheme = createMuiTheme({
 const theme = createMuiTheme({
   palette: {
     type: "light",
+    text: {
+      primary: "#000000",
+      secondary: "#303030",
+    },
     primary: {
       main: teal["500"],
       dark: teal["500"],

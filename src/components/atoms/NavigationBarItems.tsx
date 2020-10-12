@@ -51,8 +51,7 @@ const NavigationBarItems = () => {
       >
         <AttachMoneyIcon />
       </_MenuItem>
-
-      <_MenuItem
+      {/* <_MenuItem //TODO: uncomment when those features will be implemented
         selectedItem={selectedItem}
         onClick={setSelectedItem}
         to="/ranking"
@@ -68,7 +67,7 @@ const NavigationBarItems = () => {
         label="Settings"
       >
         <SettingsIcon />
-      </_MenuItem>
+      </_MenuItem> */}
       <div className="navbar-space" />
       <div className="bottom-items">
         <_MenuItem selectedItem={""} onClick={logout} to="/" label="Logout">

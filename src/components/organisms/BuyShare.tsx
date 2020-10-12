@@ -10,6 +10,8 @@ import {
   ShareTransactionResult,
 } from "../../lib/types";
 import buyShareMutation from "../../lib/buyShareMutation";
+import { useAlertContext } from "../../contexts/AlertContext";
+import showErrors from "../../lib/showErrors";
 
 type BuyShareProps = {
   sharePrice: number;
@@ -27,6 +29,7 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
     ShareTransactionResult,
     ShareTransactionRequest
   >(buyShareMutation);
+  const { addAlert } = useAlertContext();
   const styles = useStyles();
   const [shareAmount, setShareAmount] = useState<undefined | number>(undefined);
   const totalCost = sharePrice * Number(shareAmount) || 0;
@@ -35,6 +38,11 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
   const dataToDisplay = {
     sharePrice,
     availableToInvest,
+  };
+
+  const onSubmit = async () => {
+    const response = await buyShare({ amount: Number(shareAmount), ticker });
+    showErrors(response, addAlert, "Shares successfully purchased");
   };
   return (
     <SimpleTitledPaper title={"Buy"}>
@@ -52,7 +60,7 @@ const BuyShare = ({ ticker, sharePrice, availableToInvest }: BuyShareProps) => {
         disabled={!Number(shareAmount)}
         variant="contained"
         color="primary"
-        onClick={() => buyShare({ amount: Number(shareAmount), ticker })}
+        onClick={onSubmit}
       >
         SUBMIT
       </Button>

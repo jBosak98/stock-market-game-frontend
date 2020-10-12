@@ -35,7 +35,7 @@ const NumberInput = ({ value, onChange }: NumberInputProps) => {
 
   return (
     <Input
-      value={value}
+      value={value || ""}
       placeholder="amount of"
       onChange={onChange}
       endAdornment={<p className={styles.endAdornment}>shares</p>}

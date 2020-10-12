@@ -11,7 +11,7 @@ const getToken = () => localStorage.getItem("token");
 
 const App = () => {
   const client = createClient({
-    url: "http://188.68.236.168:8080/graphql",
+    url: "https://stock-market-game.me/graphql",
     fetchOptions: () => {
       const token = getToken();
       return {

@@ -51,7 +51,9 @@ const mapData = ([key, value]: any[]): string[][] => {
     case "balance":
       return [["Balance", `${value}$`]];
     case "balanceAfterTransaction":
-      return [["Balance after transaction", value]];
+      return [
+        ["Balance after transaction", `${Math.ceil(value * 100) / 100}$`],
+      ];
     default:
       return [];
   }

@@ -29,7 +29,7 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     marginRight: "0px",
     padding: "15px",
     zIndex: 1,
-
+    color: theme.palette.text.secondary,
     borderRadius: "3px",
     background: theme.palette.primary.main,
     boxShadow: `0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px ${hexToRgba(

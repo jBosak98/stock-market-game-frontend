@@ -10,10 +10,10 @@ const TransactionSectionHeader = ({
   name,
 }: TransactionSectionHeaderProps) => (
   <>
-    <Typography variant="h5" color="textPrimary">
+    <Typography variant="h5" color="textSecondary">
       {ticker}
     </Typography>
-    <Typography variant="h6" color="textPrimary">
+    <Typography variant="h6" color="textSecondary">
       {name}
     </Typography>
   </>

@@ -29,7 +29,7 @@ function PortfolioSection() {
     <ContentContainer>
       <SimplePaper
         topbar={
-          <Typography variant="h4" color="textPrimary">
+          <Typography variant="h4" color="textSecondary">
             Portfolio
           </Typography>
         }

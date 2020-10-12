@@ -47,7 +47,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
 };
 
 const CompaniesTableTopbar = () => (
-  <Typography variant="h4" color="textPrimary">
+  <Typography variant="h4" color="textSecondary">
     Stock
   </Typography>
 );

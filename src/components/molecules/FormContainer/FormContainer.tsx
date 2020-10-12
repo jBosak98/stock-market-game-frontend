@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: "100%",
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: "none",
-    color: "inherit",
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -58,7 +58,7 @@ const FormContainer = ({
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography color="textPrimary" component="h1" variant="h5">
           {title}
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmit}>
@@ -68,7 +68,7 @@ const FormContainer = ({
           <ButtonElement>{title}</ButtonElement>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link className={classes.link} to={linkUrl}>
+              <Link color="textPrimary" className={classes.link} to={linkUrl}>
                 {linkText}
               </Link>
             </Grid>
