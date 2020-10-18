@@ -46,7 +46,7 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const user = useUser((store) => store.user);
   const ownedShares =
     user?.assets.shares.find((share) => share.company.ticker === ticker)
-      ?.amount || undefined;
+      ?.amount || 0;
   const styles = useStyles();
   const chartData = data
   ?.getCandles?.map(({openPrice, highPrice, lowPrice, closePrice, volume, time})=>({
