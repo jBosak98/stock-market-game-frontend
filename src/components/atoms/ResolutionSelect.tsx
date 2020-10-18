@@ -10,7 +10,9 @@ import type { ChartResolutionType } from '../../lib/types';
 
 const useStyles = makeStyles(() => ({
   form: {
-    minWidth:'150px'
+    minWidth:'150px',
+    marginTop:'16px',
+    marginLeft:'20px'
   }
 }));
 

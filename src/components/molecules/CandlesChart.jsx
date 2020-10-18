@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import { last, timeIntervalBarWidth } from "react-stockcharts/lib/utils";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
@@ -6,6 +6,7 @@ import { CandlestickSeries } from "react-stockcharts/lib/series";
 import { utcDay } from "d3-time";
 import { scaleTime } from "d3-scale";
 import { format } from "d3-format";
+
 import {
   CrossHairCursor,
   EdgeIndicator,
@@ -22,9 +23,14 @@ const CandlesChart = ({ type, data, width, ratio }) => {
   const xAccessor = (d) => d.date;
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
   const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
+  useEffect(() => {
+    document.body.style.overflow = "unset";
+    return () => (document.body.style.overflow = "hidden");
+  }, []);
   return (
     <ChartCanvas
       height={400}
+      clamp={true}
       ratio={1}
       width={width}
       margin={{ left: 50, right: 50, top: 10, bottom: 30 }}

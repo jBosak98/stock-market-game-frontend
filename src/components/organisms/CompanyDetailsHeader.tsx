@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import { Grid, Typography } from "@material-ui/core";
-
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 import { useQuery } from "urql";
 import moment from 'moment';
 
@@ -15,6 +19,7 @@ import Loader from "../atoms/Loader";
 import type { ChartResolutionType } from '../../lib/types';
 import ResolutionSelect from '../atoms/ResolutionSelect';
 import TransactionButtonLink from '../atoms/TransactionButtonLink';
+import ScrollDisableWrapper from '../atoms/ScrollDisableWrapper';
 
 
 type CompanyDetailsHeaderProps = {
@@ -23,6 +28,12 @@ type CompanyDetailsHeaderProps = {
 
 const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const [resolution, setResolution] = useState<ChartResolutionType>("D");
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
+    new Date('2014-08-18T21:11:54'),
+  );
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
   const from =  moment().startOf('minute').subtract(1,'year').toDate().toJSON();
   const to = moment().startOf('minute').toDate().toJSON();
   const [{ data, fetching, error }] = useQuery<{getCandles:Candles}>({
@@ -51,7 +62,7 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
     percentChange:"",
     date:new Date(time)
   })) || [];
-  return (
+  return (<ScrollDisableWrapper>
     <SimplePaper
       topbar={<Topbar ticker={ticker} ownedShares={ownedShares}/>}
     >
@@ -59,10 +70,25 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
        <CandlesChart  type={'svg'} data={chartData}/>
        <Grid container justify="space-between" direction="row">
         <TransactionButtonLink ticker={ticker}/>
+        <Grid direction="row" alignItems="flex-start">
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>     
+          <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            format="dd/MM/yyyy"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+        </MuiPickersUtilsProvider>
         <ResolutionSelect setResolution={setResolution} resolution={resolution} />
+        </Grid>
       </Grid>
       </Grid>}
     </SimplePaper>
+    </ScrollDisableWrapper>
   );
 };
 
