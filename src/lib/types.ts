@@ -44,3 +44,5 @@ export type Sm =
 export type ShareTransactionRequest = { amount: number; ticker: string };
 
 export type ShareTransactionResult = { buyShare: User };
+
+export type ChartResolutionType = "1" | "5" | "15" | "30" | "D" | "W" | "M";

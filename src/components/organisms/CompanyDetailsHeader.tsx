@@ -1,12 +1,8 @@
 import React, {useState} from "react";
-import { Grid, Button, makeStyles, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Grid, Typography } from "@material-ui/core";
+
 import { useQuery } from "urql";
 import moment from 'moment';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-
 
 
 import SimplePaper from "../atoms/SimplePaper";
@@ -16,21 +12,14 @@ import getCandlesQuery from '../../lib/getCandlesQuery';
 import type {Candles} from '../../lib/getCandlesQuery';
 import CandlesChart from '../molecules/CandlesChart';
 import Loader from "../atoms/Loader";
+import type { ChartResolutionType } from '../../lib/types';
+import ResolutionSelect from '../atoms/ResolutionSelect';
+import TransactionButtonLink from '../atoms/TransactionButtonLink';
 
 
-const useStyles = makeStyles(() => ({
-  transactionButton: {
-    marginRight: "auto",
-  },
-  link: {
-    textDecoration: "none",
-    color: "inherit",
-  },
-}));
 type CompanyDetailsHeaderProps = {
   ticker: string;
 };
-type ChartResolutionType = "1" | "5" | "15" | "30" | "D" | "W" | "M";
 
 const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const [resolution, setResolution] = useState<ChartResolutionType>("D");
@@ -49,7 +38,6 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const ownedShares =
     user?.assets.shares.find((share) => share.company.ticker === ticker)
       ?.amount || 0;
-  const styles = useStyles();
   const chartData = data
   ?.getCandles?.map(({openPrice, highPrice, lowPrice, closePrice, volume, time})=>({
     open:openPrice,
@@ -65,46 +53,26 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   })) || [];
   return (
     <SimplePaper
-      topbar={
-        <>
-          <Typography variant="h4" color="textSecondary">
-            {ticker}
-          </Typography>
-          <Typography color="textSecondary">
-            {mapData(["ownedShares", ownedShares])}
-          </Typography>
-        </>
-      }
+      topbar={<Topbar ticker={ticker} ownedShares={ownedShares}/>}
     >
      {fetching && <Loader/> || <Grid container direction="column">
-         <CandlesChart  type={'svg'} data={chartData}/>
-        <InputLabel >Resolution</InputLabel>
-        <Select
-          value={resolution}
-          onChange={(event)=>setResolution(event.target.value as ChartResolutionType)}
-        >
-          {/* <MenuItem value={"1"}>One minute</MenuItem>
-          <MenuItem value={"5"}>Five minutes</MenuItem>
-          <MenuItem value={"15"}>Fifteen minutes</MenuItem> */}
-          {/* <MenuItem value={"30"}>Thirty minutes</MenuItem> */}
-          <MenuItem value={"D"}>One Day</MenuItem>
-          <MenuItem value={"W"}>One Week</MenuItem>
-          <MenuItem value={"M"}>One Month</MenuItem>
-        </Select>
-        <Link className={styles.link} to={`/company/${ticker}/transaction`}>
-          <Button
-            className={styles.transactionButton}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            MAKE A TRANSACTION
-          </Button>
-        </Link>
+       <CandlesChart  type={'svg'} data={chartData}/>
+       <ResolutionSelect setResolution={setResolution} resolution={resolution} />
+        <TransactionButtonLink ticker={ticker}/>
       </Grid>}
     </SimplePaper>
   );
 };
+
+const Topbar = ({ticker, ownedShares}:{ticker:string, ownedShares:number}) => 
+<>
+  <Typography variant="h4" color="textSecondary">
+    {ticker}
+  </Typography>
+  <Typography color="textSecondary">
+    {mapData(["ownedShares", ownedShares])}
+  </Typography>
+</>
 
 
 export default CompanyDetailsHeader;
