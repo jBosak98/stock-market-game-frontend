@@ -8,12 +8,9 @@ import { scaleTime } from "d3-scale";
 import { fitWidth } from "react-stockcharts/lib/helper";
 
 const CandlesChart = ({ type, data, width, ratio }) => {
-  const inspect = (data) => console.log(data) || data;
   const xAccessor = (d) => d.date;
-  const xExtents = [
-    xAccessor(last(data)),
-    xAccessor(data[inspect(data.length - 10)]),
-  ];
+  const elementsWidth = data.length < 20 ? data.length / 2 : 20;
+  const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
   return (
     <ChartCanvas
       height={400}
