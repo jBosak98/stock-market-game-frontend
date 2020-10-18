@@ -9,13 +9,11 @@ import ContentContainer from "../atoms/ContentContainer";
 import SimplePaper from "../atoms/SimplePaper";
 import CompaniesTableRow from "../molecules/CompaniesTableRow";
 import PortfolioTopbar from "../atoms/PortfolioTopbar";
+import Loader from "../atoms/Loader";
+import useUser from "../../hooks/useUser";
 
 function PortfolioSection() {
-  const [{ data, fetching, error }] = useQuery<{ me: User }>({
-    query: meQuery,
-  });
-
-  const user = data?.me;
+  const user = useUser((store) => store.user);
   const headerRows = [
     { text: "SYMBOL", optional: true },
     { text: "NAME", optional: false },
@@ -25,6 +23,8 @@ function PortfolioSection() {
     { text: "LAST PRICE", optional: false },
   ];
   const { shares = [], money = 0 } = user?.assets || {};
+
+  if (!user) return <Loader />;
 
   return (
     <ContentContainer>

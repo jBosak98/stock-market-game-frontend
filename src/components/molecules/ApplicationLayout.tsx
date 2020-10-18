@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import SimpleAppBar from "./SimpleAppBar";
 import SimpleDrawer from "../atoms/SimpleDrawer";
 import MainRoute from "../../routes/MainRoute";
-
 import useSubscribedUser from "../../hooks/useSubscribedUser";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ApplicationLayout = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState<boolean>(false);
-  const [user, isUserLoggedIn] = useSubscribedUser();
-
+  const [_, isUserLoggedIn] = useSubscribedUser();
   const styles = useStyles();
   return (
     <BrowserRouter>

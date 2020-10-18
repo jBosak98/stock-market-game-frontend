@@ -6,7 +6,7 @@ import SimplePaper from "../atoms/SimplePaper";
 import useCompany from "../../hooks/useCompany";
 import Loader from "../atoms/Loader";
 import TransactionSectionHeader from "../molecules/TransactionSectionHeader";
-import { useUserContext } from "../../contexts/UserContext";
+import useUser from "../../hooks/useUser";
 import BuyShare from "../organisms/BuyShare";
 import SellShare from "../organisms/SellShare";
 
@@ -24,7 +24,7 @@ const TransactionSection = ({ match, history }: TransactionSectionProps) => {
   const { params } = match || {};
   const { ticker = "" } = params || {};
   const { data = {}, fetching, error } = useCompany(ticker);
-  const user = useUserContext()((store) => store.user);
+  const user = useUser((store) => store.user);
 
   if ((!data.getCompany && !fetching) || !!error) {
     history && history.push("/stock");

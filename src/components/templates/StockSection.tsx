@@ -11,7 +11,9 @@ function StockSection() {
   const { companies = [] } = data?.companiesConnection || {};
   return (
     <ContentContainer>
-      {(companies && <CompaniesTable companies={companies} />) || <Loader />}
+      {(companies.length && <CompaniesTable companies={companies} />) || (
+        <Loader />
+      )}
     </ContentContainer>
   );
 }

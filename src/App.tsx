@@ -3,7 +3,6 @@ import React from "react";
 import "./App.scss";
 import ApplicationLayout from "./components/molecules/ApplicationLayout";
 import { ThemeModeProvider } from "./contexts/ThemeModeContext";
-import { UserContextProvider } from "./contexts/UserContext";
 import { AlertContextProvider } from "./contexts/AlertContext";
 import { createClient, Provider } from "urql";
 
@@ -12,6 +11,7 @@ const getToken = () => localStorage.getItem("token");
 const App = () => {
   const client = createClient({
     url: "https://stock-market-game.me/graphql",
+    // url: "http://localhost:8080/graphql",
     fetchOptions: () => {
       const token = getToken();
       return {
@@ -25,9 +25,7 @@ const App = () => {
       <Provider value={client}>
         <ThemeModeProvider>
           <AlertContextProvider>
-            <UserContextProvider>
-              <ApplicationLayout />
-            </UserContextProvider>
+            <ApplicationLayout />
           </AlertContextProvider>
         </ThemeModeProvider>
       </Provider>
