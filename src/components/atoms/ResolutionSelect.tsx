@@ -3,8 +3,16 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import { makeStyles } from "@material-ui/core";
+
 
 import type { ChartResolutionType } from '../../lib/types';
+
+const useStyles = makeStyles(() => ({
+  form: {
+    minWidth:'150px'
+  }
+}));
 
 
 type ResolutionSelectProps = {
@@ -15,8 +23,9 @@ const ResolutionSelect = ({
   setResolution,
   resolution,
 }: ResolutionSelectProps) => {
+  const styles=useStyles();
   return (
-    <FormControl>
+    <FormControl className={styles.form}>
       <Select
         value={resolution}
         onChange={(event) =>

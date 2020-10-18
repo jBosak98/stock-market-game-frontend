@@ -57,8 +57,10 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
     >
      {fetching && <Loader/> || <Grid container direction="column">
        <CandlesChart  type={'svg'} data={chartData}/>
-       <ResolutionSelect setResolution={setResolution} resolution={resolution} />
+       <Grid container justify="space-between" direction="row">
         <TransactionButtonLink ticker={ticker}/>
+        <ResolutionSelect setResolution={setResolution} resolution={resolution} />
+      </Grid>
       </Grid>}
     </SimplePaper>
   );
