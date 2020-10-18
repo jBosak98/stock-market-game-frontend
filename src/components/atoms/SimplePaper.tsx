@@ -42,6 +42,9 @@ const useStyles = makeStyles<Theme, SimplePaperProps>((theme) => ({
     [theme.breakpoints.up("sm")]: {
       minWidth: "70%",
     },
+    [theme.breakpoints.up("xl")]: {
+      minWidth: "30%",
+    },
   },
   header: {
     height: "60px",
