@@ -13,7 +13,8 @@ const useSubscribedUser = () => {
   useEffect(
     () =>
       useUser.subscribe(
-        (user: User | undefined | null) => setUserState(user || undefined),
+        (user: User | undefined | null) =>
+          user && setUserState(user || undefined),
         (state) => state.user
       ),
     []

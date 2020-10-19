@@ -34,7 +34,7 @@ export const useRefreshUser = () => {
         return undefined;
       }
       const { me } = user;
-      setUser && setUser(me);
+      me && setUser && setUser(me);
       const { token } = me || {};
       token && localStorage.setItem("token", token);
       return me;
