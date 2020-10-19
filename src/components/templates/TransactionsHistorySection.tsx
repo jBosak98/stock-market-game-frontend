@@ -10,6 +10,7 @@ import Loader from "../atoms/Loader";
 import SimplePaper from "../atoms/SimplePaper";
 import CompaniesTableHeader from "../molecules/CompaniesTableHeader";
 import CompaniesTableRow from "../molecules/CompaniesTableRow";
+import { roundMoney } from "../../lib/mapData";
 
 function TransactionsHistorySection() {
   const [{ data, error, fetching }] = useQuery<Transactions>({
@@ -41,9 +42,10 @@ function TransactionsHistorySection() {
             <>
               <CompaniesTableHeader sm={3} rows={headerRows} />
               {transactions.map(
-                ({ id, company, pricePerShare, createdAt, quantity }) => {
+                ({ id, company, pricePerShare, createdAt, quantity, type }) => {
                   const { ticker } = company;
-
+                  const created = new Date(createdAt);
+                  const sign = type === "DISPOSAL" ? "+ " : "- ";
                   const rows = [
                     {
                       text: ticker,
@@ -51,9 +53,12 @@ function TransactionsHistorySection() {
                       link: `/company/${ticker}`,
                     },
                     { text: quantity, optional: false },
-                    { text: pricePerShare, optional: false },
-                    { text: createdAt, optional: false },
-                    { text: pricePerShare * quantity, optional: true },
+                    { text: roundMoney(pricePerShare), optional: false },
+                    { text: created.toLocaleDateString(), optional: false },
+                    {
+                      text: sign + roundMoney(pricePerShare * quantity),
+                      optional: true,
+                    },
                   ];
                   return <CompaniesTableRow sm={3} key={id} rows={rows} />;
                 }

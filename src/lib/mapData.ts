@@ -61,6 +61,6 @@ const mapData = ([key, value]: any[]): string[][] => {
   }
 };
 
-const roundMoney = (value: any) => Math.ceil(value * 100) / 100;
+export const roundMoney = (value: any) => Math.ceil(value * 100) / 100;
 
 export default mapData;
