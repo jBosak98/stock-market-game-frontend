@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   mainContainer: {
     display: "flex",
-    overflow: "auto",
     width: "100%",
+    minHeight: "calc(100vh -64px)",
+    overflow: "inherit",
     backgroundColor: theme.palette.background.default,
   },
 }));

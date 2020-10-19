@@ -23,10 +23,6 @@ const CandlesChart = ({ type, data, width, ratio }) => {
   const xAccessor = (d) => d.date;
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
   const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
-  useEffect(() => {
-    document.body.style.overflow = "unset";
-    return () => (document.body.style.overflow = "hidden");
-  }, []);
   return (
     <ChartCanvas
       height={400}

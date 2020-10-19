@@ -71,7 +71,7 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
        <Grid container justify="space-between" direction="row">
         <TransactionButtonLink ticker={ticker}/>
         <Grid direction="row" alignItems="flex-start">
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>     
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> //TODO: implement refetch based on date
           <KeyboardDatePicker
             margin="normal"
             id="date-picker-dialog"
@@ -82,7 +82,7 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
               'aria-label': 'change date',
             }}
           />
-        </MuiPickersUtilsProvider>
+        </MuiPickersUtilsProvider> */}
         <ResolutionSelect setResolution={setResolution} resolution={resolution} />
         </Grid>
       </Grid>
