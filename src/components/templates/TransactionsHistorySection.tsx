@@ -37,29 +37,35 @@ function TransactionsHistorySection() {
         }
       >
         <Grid>
-          <CompaniesTableHeader sm={3} rows={headerRows} />
-          {transactions.map(
-            ({ id, company, pricePerShare, createdAt, quantity }) => {
-              const { ticker } = company;
+          {(!transactions.length && <NoHistoryInfo />) || (
+            <>
+              <CompaniesTableHeader sm={3} rows={headerRows} />
+              {transactions.map(
+                ({ id, company, pricePerShare, createdAt, quantity }) => {
+                  const { ticker } = company;
 
-              const rows = [
-                {
-                  text: ticker,
-                  optional: false,
-                  link: `/company/${ticker}`,
-                },
-                { text: quantity, optional: false },
-                { text: pricePerShare, optional: false },
-                { text: createdAt, optional: false },
-                { text: pricePerShare * quantity, optional: true },
-              ];
-              return <CompaniesTableRow sm={3} key={id} rows={rows} />;
-            }
+                  const rows = [
+                    {
+                      text: ticker,
+                      optional: false,
+                      link: `/company/${ticker}`,
+                    },
+                    { text: quantity, optional: false },
+                    { text: pricePerShare, optional: false },
+                    { text: createdAt, optional: false },
+                    { text: pricePerShare * quantity, optional: true },
+                  ];
+                  return <CompaniesTableRow sm={3} key={id} rows={rows} />;
+                }
+              )}
+            </>
           )}
         </Grid>
       </SimplePaper>
     </ContentContainer>
   );
 }
+
+const NoHistoryInfo = () => <Typography>Your history is empty</Typography>;
 
 export default TransactionsHistorySection;

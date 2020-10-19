@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { useQuery } from "urql";
 
 import CompaniesTableHeader from "../molecules/CompaniesTableHeader";
@@ -30,24 +30,34 @@ function PortfolioSection() {
     <ContentContainer>
       <SimplePaper topbar={<PortfolioTopbar money={money} />}>
         <Grid>
-          <CompaniesTableHeader sm={3} rows={headerRows} />
-          {shares.map(({ amount, companyId, company }) => {
-            const { name, ticker, quote } = company;
-            const { currentPrice, dailyChange } = quote;
-            const rows = [
-              { text: ticker, optional: true, link: `/company/${ticker}` },
-              { text: name, optional: false, link: `/company/${ticker}` },
-              { text: amount, optional: false },
-              { text: dailyChange, optional: false },
-              { text: 0.0, optional: true },
-              { text: currentPrice, optional: false },
-            ];
-            return <CompaniesTableRow sm={3} key={companyId} rows={rows} />;
-          })}
+          {(!shares.length && <NoSharesInfo />) || (
+            <>
+              <CompaniesTableHeader sm={3} rows={headerRows} />
+              {shares.map(({ amount, companyId, company }) => {
+                const { name, ticker, quote } = company;
+                const { currentPrice, dailyChange } = quote;
+                const rows = [
+                  {
+                    text: ticker,
+                    optional: true,
+                    link: `/company/${ticker}`,
+                  },
+                  { text: name, optional: false, link: `/company/${ticker}` },
+                  { text: amount, optional: false },
+                  { text: dailyChange, optional: false },
+                  { text: 0.0, optional: true },
+                  { text: currentPrice, optional: false },
+                ];
+                return <CompaniesTableRow sm={3} key={companyId} rows={rows} />;
+              })}
+            </>
+          )}
         </Grid>
       </SimplePaper>
     </ContentContainer>
   );
 }
+
+const NoSharesInfo = () => <Typography>You have no shares</Typography>;
 
 export default PortfolioSection;
