@@ -7,11 +7,13 @@ import sellShareMutation from "../../lib/sellShareMutation";
 import {
   ShareTransactionRequest,
   ShareTransactionResult,
+  User,
 } from "../../lib/types";
 import NumberInput from "../atoms/NumberInput";
 import KeyValueRows from "../molecules/KeyValueRows";
 import { useAlertContext } from "../../contexts/AlertContext";
 import showErrors from "../../lib/showErrors";
+import useUser, { meQuery } from "../../hooks/useUser";
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -35,6 +37,8 @@ const SellShare = ({
   const [shareAmount, setShareAmount] = useState<undefined | number>(undefined);
   const styles = useStyles();
   const { addAlert } = useAlertContext();
+  const [_, refetchUser] = useMutation<{ me: User }>(meQuery);
+  const setUser = useUser(({ setUser }) => setUser);
 
   const [sellShareResult, sellShare] = useMutation<
     ShareTransactionResult,
@@ -42,6 +46,8 @@ const SellShare = ({
   >(sellShareMutation);
   const onSubmit = async () => {
     const response = await sellShare({ amount: Number(shareAmount), ticker });
+    const user = await refetchUser();
+    user.data?.me && setUser(user.data.me);
     showErrors(response, addAlert, "Shares successfully sold");
   };
   const moneyToAdd = sharePrice * Number(shareAmount) || 0;

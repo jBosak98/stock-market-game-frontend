@@ -1,4 +1,5 @@
 import { useQuery } from "urql";
+import { useCallback } from "react";
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -12,13 +13,18 @@ export type UserStore = {
 const useUser = create<UserStore>(
   devtools((set) => ({
     user: undefined,
-    setUser: (user) => set({ user }, true),
+    setUser: (user) => set({ user }),
   }))
 );
 
 export const useRefreshUser = () => {
-  const setUser = useUser(({ setUser }) => setUser);
-  const [{ data, fetching }] = useQuery<{ me: User }>({ query: meQuery });
+  const setUser = useCallback(
+    useUser(({ setUser }) => setUser),
+    []
+  );
+  const [{ data, fetching }, refetch] = useQuery<{ me: User }>({
+    query: meQuery,
+  });
   return () =>
     new Promise<{ me: User } | undefined>(
       (resolve) => !fetching && resolve(data)
