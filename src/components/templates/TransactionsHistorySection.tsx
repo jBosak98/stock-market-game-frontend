@@ -26,7 +26,6 @@ function TransactionsHistorySection() {
     { text: "DATE", optional: false },
     { text: "SUBTOTAL", optional: false },
   ];
-  console.log(data);
   const transactions = data?.getTransactions || [];
   return (
     <ContentContainer>
