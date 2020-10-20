@@ -55,11 +55,11 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
             {
               component: (
                 <Button type="submit" variant="contained" color="primary">
-                  TRANSACTION
+                  SHOW DETAILS
                 </Button>
               ),
               optional: true,
-              link: `/company/${ticker}/transaction`,
+              link: `/company/${ticker}`,
             },
           ];
           return <CompaniesTableRow rows={rows} key={id} />;
