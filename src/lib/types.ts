@@ -15,6 +15,7 @@ export type Quote = {
   companyId: Number;
   currentPrice: number;
   dailyChange: Number;
+  dailyChangePercentage: Number;
 };
 
 export type Company = {

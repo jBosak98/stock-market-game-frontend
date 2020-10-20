@@ -12,6 +12,7 @@ query getCompanies($skip: Int, $limit: Int) {
         quote {
           companyId
           dailyChange
+          dailyChangePercentage
           currentPrice 
         }
       }
@@ -31,7 +32,6 @@ const useStock = (skip: number = 0, limit: number = 10) => {
     query: stockQuery,
     variables: { skip, limit },
   });
-
   const { data, error, fetching } = result;
   return { data, error, fetching };
 };
