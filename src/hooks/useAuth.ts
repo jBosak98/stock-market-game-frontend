@@ -21,6 +21,7 @@ const loginQuery = `
             name
             quote{
               dailyChange
+              dailyChangePercentage
               currentPrice
             }
           }

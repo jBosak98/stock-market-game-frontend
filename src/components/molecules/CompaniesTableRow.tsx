@@ -36,6 +36,7 @@ type CompaniesTableRowProps = {
     optional: boolean;
     link?: string;
     component?: JSX.Element;
+    color?: string;
   }[];
 };
 const CompaniesTableRow = ({ rows, sm }: CompaniesTableRowProps) => {
@@ -49,8 +50,14 @@ const CompaniesTableRow = ({ rows, sm }: CompaniesTableRowProps) => {
       container
       direction="row"
     >
-      {rows.map(({ text, optional, component, link }, index) => (
-        <RowElement sm={sm} link={link} optional={optional} key={index}>
+      {rows.map(({ text, optional, component, link, color }, index) => (
+        <RowElement
+          color={color}
+          sm={sm}
+          link={link}
+          optional={optional}
+          key={index}
+        >
           {isUndefined(text) ? component : text}
         </RowElement>
       ))}

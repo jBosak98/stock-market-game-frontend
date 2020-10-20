@@ -38,6 +38,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
             {
               text: mapData(["dailyChange", dailyChange])[0][1],
               optional: false,
+              color: dailyChange > 0 ? "green" : "red",
             },
             {
               text: mapData([
@@ -45,6 +46,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
                 dailyChangePercentage,
               ])[0][1],
               optional: true,
+              color: dailyChangePercentage > 0 ? "green" : "red",
             },
             {
               text: mapData(["currentPrice", currentPrice])[0][1],

@@ -11,6 +11,7 @@ import CompaniesTableRow from "../molecules/CompaniesTableRow";
 import PortfolioTopbar from "../atoms/PortfolioTopbar";
 import Loader from "../atoms/Loader";
 import useUser from "../../hooks/useUser";
+import mapData from "../../lib/mapData";
 
 function PortfolioSection() {
   const user = useUser((store) => store.user);
@@ -35,7 +36,11 @@ function PortfolioSection() {
               <CompaniesTableHeader sm={3} rows={headerRows} />
               {shares.map(({ amount, companyId, company }) => {
                 const { name, ticker, quote } = company;
-                const { currentPrice, dailyChange } = quote;
+                const {
+                  currentPrice,
+                  dailyChange,
+                  dailyChangePercentage,
+                } = quote;
                 const rows = [
                   {
                     text: ticker,
@@ -44,8 +49,19 @@ function PortfolioSection() {
                   },
                   { text: name, optional: false, link: `/company/${ticker}` },
                   { text: amount, optional: false },
-                  { text: dailyChange, optional: false },
-                  { text: 0.0, optional: true },
+                  {
+                    text: mapData(["dailyChange", dailyChange])[0][1],
+                    optional: false,
+                    color: dailyChange > 0 ? "green" : "red",
+                  },
+                  {
+                    text: mapData([
+                      "dailyChangePercentage",
+                      dailyChangePercentage,
+                    ])[0][1],
+                    optional: true,
+                    color: dailyChangePercentage > 0 ? "green" : "red",
+                  },
                   { text: currentPrice, optional: false },
                 ];
                 return <CompaniesTableRow sm={3} key={companyId} rows={rows} />;

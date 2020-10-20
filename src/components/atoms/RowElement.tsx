@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Grid } from "@material-ui/core";
+import { makeStyles, Grid, Theme } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import ConditionalWrapper from "./ConditionalWrapper";
@@ -11,9 +11,10 @@ type RowElementProps = {
   optional?: boolean;
   link?: string | undefined;
   sm?: Sm;
+  color?: string;
 };
 
-const useElementStyles = makeStyles((theme) => ({
+const useElementStyles = makeStyles<Theme, RowElementProps>((theme) => ({
   element: {
     fontSize: "15px",
     marginTop: "auto",
@@ -21,6 +22,7 @@ const useElementStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "14px",
     },
+    color: (props) => props.color,
   },
   optional: {
     [theme.breakpoints.down("sm")]: {
@@ -33,14 +35,9 @@ const useElementStyles = makeStyles((theme) => ({
   },
 }));
 
-const RowElement = ({
-  children,
-  className,
-  optional = false,
-  link,
-  sm,
-}: RowElementProps) => {
-  const styles = useElementStyles();
+const RowElement = (props: RowElementProps) => {
+  const { children, className, optional = false, link, sm, color } = props;
+  const styles = useElementStyles(props);
   return (
     <Grid
       className={`${className} ${styles.element} ${(optional &&
@@ -49,6 +46,7 @@ const RowElement = ({
       sm={sm || 4}
       md={2}
       item
+      color={color}
     >
       <ConditionalWrapper
         condition={!!link}

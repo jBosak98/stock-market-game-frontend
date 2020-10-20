@@ -58,6 +58,7 @@ export const meQuery = `
             name
             quote{
               dailyChange
+              dailyChangePercentage
               currentPrice
             }
           }
