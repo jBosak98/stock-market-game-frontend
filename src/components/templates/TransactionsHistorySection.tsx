@@ -55,7 +55,7 @@ function TransactionsHistorySection() {
                     { text: roundMoney(pricePerShare), optional: false },
                     { text: created.toLocaleString(), optional: false },
                     {
-                      text: sign + roundMoney(pricePerShare * quantity),
+                      text: `${sign + roundMoney(pricePerShare * quantity)}$`,
                       optional: true,
                     },
                   ];
