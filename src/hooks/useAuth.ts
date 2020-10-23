@@ -12,6 +12,7 @@ const loginQuery = `
       email
       assets {
         money
+        accountValue
         shares {
           companyId
           amount

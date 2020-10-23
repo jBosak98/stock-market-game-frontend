@@ -53,7 +53,7 @@ const mapData = ([key, value]: any[]): string[][] => {
     case "balanceAfterTransaction":
       return [["Balance after transaction", `${roundMoney(value)}$`]];
     case "money":
-      return [["Available money: ", `${roundMoney(value)}$`]];
+      return [["Cash: ", `${roundMoney(value)}$`]];
     case "ownedShares":
       return [["Owned shares: ", value]];
     case "dailyChange":
@@ -62,6 +62,8 @@ const mapData = ([key, value]: any[]): string[][] => {
       return [["Daily change percentage: ", `${roundMoney(Number(value))}%`]];
     case "currentPrice":
       return [["Current price: ", `${roundMoney(value)}$`]];
+    case "accountValue":
+      return [["Account Value: ", `${roundMoney(value)}$`]];
     default:
       return [];
   }

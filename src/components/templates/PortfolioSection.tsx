@@ -23,13 +23,15 @@ function PortfolioSection() {
     { text: "CHANGE PERCENTAGE", optional: true },
     { text: "LAST PRICE", optional: false },
   ];
-  const { shares = [], money = 0 } = user?.assets || {};
+  const { shares = [], money = 0, accountValue = 0 } = user?.assets || {};
 
   if (!user) return <Loader />;
 
   return (
     <ContentContainer>
-      <SimplePaper topbar={<PortfolioTopbar money={money} />}>
+      <SimplePaper
+        topbar={<PortfolioTopbar money={money} accountValue={accountValue} />}
+      >
         <Grid>
           {(!shares.length && <NoSharesInfo />) || (
             <>

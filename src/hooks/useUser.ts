@@ -49,6 +49,7 @@ export const meQuery = `
       email
       assets {
         money
+        accountValue
         shares {
           companyId
           amount

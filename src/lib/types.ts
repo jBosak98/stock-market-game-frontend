@@ -4,6 +4,7 @@ export type User = {
   token: string;
   assets: {
     money: number;
+    accountValue: number;
     shares: {
       companyId: number;
       amount: number;
