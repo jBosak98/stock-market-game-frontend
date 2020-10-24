@@ -35,9 +35,9 @@ const ResolutionSelect = ({
         }
       >
         {/* <MenuItem value={"1"}>One minute</MenuItem>
-   <MenuItem value={"5"}>Five minutes</MenuItem>
-   <MenuItem value={"15"}>Fifteen minutes</MenuItem> */}
-        {/* <MenuItem value={"30"}>Thirty minutes</MenuItem> */}
+        <MenuItem value={"5"}>Five minutes</MenuItem> */}
+        <MenuItem value={"15"}>Fifteen minutes</MenuItem> 
+        <MenuItem value={"30"}>Thirty minutes</MenuItem>
         <MenuItem value={"D"}>One Day</MenuItem>
         <MenuItem value={"W"}>One Week</MenuItem>
         <MenuItem value={"M"}>One Month</MenuItem>

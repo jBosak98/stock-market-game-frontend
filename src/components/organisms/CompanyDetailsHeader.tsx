@@ -62,12 +62,15 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
     percentChange:"",
     date:new Date(time)
   })) || [];
+
+  const isLineSeries = resolution === "1" || resolution === "5" || resolution === "15" || resolution === "30"
+
   return (<ScrollDisableWrapper>
     <SimplePaper
       topbar={<Topbar ticker={ticker} ownedShares={ownedShares}/>}
     >
      {fetching && <Loader/> || <Grid container direction="column">
-       <CandlesChart  type={'svg'} data={chartData}/>
+       <CandlesChart lineSeries={isLineSeries} candleSeries={!isLineSeries}  type={'svg'} data={chartData}/>
        <Grid container justify="space-between" direction="row">
         <TransactionButtonLink ticker={ticker}/>
         <Grid direction="row" alignItems="flex-start">

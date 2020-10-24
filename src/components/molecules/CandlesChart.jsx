@@ -2,7 +2,12 @@ import React, { useRef, useEffect } from "react";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import { last, timeIntervalBarWidth } from "react-stockcharts/lib/utils";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
-import { CandlestickSeries } from "react-stockcharts/lib/series";
+import {
+  CandlestickSeries,
+  LineSeries,
+  TriangleMarker,
+  ScatterSeries,
+} from "react-stockcharts/lib/series";
 import { utcDay } from "d3-time";
 import { scaleTime } from "d3-scale";
 import { format } from "d3-format";
@@ -18,7 +23,14 @@ import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
 import { timeFormat } from "d3-time-format";
 import { useTheme } from "@material-ui/core/styles";
 
-const CandlesChart = ({ type, data, width, ratio }) => {
+const CandlesChart = ({
+  type,
+  data,
+  width,
+  ratio,
+  candleSeries,
+  lineSeries,
+}) => {
   const theme = useTheme();
   const xAccessor = (d) => d.date;
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
@@ -63,10 +75,13 @@ const CandlesChart = ({ type, data, width, ratio }) => {
           orient="bottom"
           displayFormat={timeFormat("%Y-%m-%d")}
         />
-        <CandlestickSeries
-          wickStroke={theme.palette.grey["50"]}
-          width={timeIntervalBarWidth(utcDay)}
-        />
+        {candleSeries && (
+          <CandlestickSeries
+            wickStroke={theme.palette.grey["50"]}
+            width={timeIntervalBarWidth(utcDay)}
+          />
+        )}
+        {lineSeries && <LineSeries yAccessor={(d) => d.close} />}
         <EdgeIndicator
           itemType="last"
           orient="right"
@@ -74,6 +89,7 @@ const CandlesChart = ({ type, data, width, ratio }) => {
           yAccessor={(d) => d.close}
           fill={(d) => (d.close > d.open ? "#6BA583" : "#FF0000")}
         />
+
         <OHLCTooltip
           origin={[10, 0]}
           labelFill={theme.palette.primary.main}
