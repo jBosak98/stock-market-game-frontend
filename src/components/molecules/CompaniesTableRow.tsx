@@ -3,6 +3,7 @@ import { makeStyles, Grid } from "@material-ui/core";
 import { isUndefined } from "lodash";
 
 import RowElement from "../atoms/RowElement";
+import type { Sm, CompaniesTableRowType } from "../../lib/types";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -15,29 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 type CompaniesTableRowProps = {
-  sm?:
-    | boolean
-    | "auto"
-    | 1
-    | 2
-    | 3
-    | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12
-    | undefined;
-  rows: {
-    text?: String | Number;
-    optional: boolean;
-    link?: string;
-    component?: JSX.Element;
-    color?: string;
-  }[];
+  sm?: Sm;
+  rows: CompaniesTableRowType[];
 };
 const CompaniesTableRow = ({ rows, sm }: CompaniesTableRowProps) => {
   const styles = useStyles();
@@ -50,10 +30,11 @@ const CompaniesTableRow = ({ rows, sm }: CompaniesTableRowProps) => {
       container
       direction="row"
     >
-      {rows.map(({ text, optional, component, link, color }, index) => (
+      {rows.map(({ text, optional, component, link, color, md }, index) => (
         <RowElement
           color={color}
           sm={sm}
+          md={md}
           link={link}
           optional={optional}
           key={index}

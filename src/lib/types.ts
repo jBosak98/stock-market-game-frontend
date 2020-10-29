@@ -9,6 +9,7 @@ export type User = {
       companyId: number;
       amount: number;
       company: Company;
+      totalGain: number;
     }[];
   };
 };
@@ -24,6 +25,21 @@ export type Company = {
   name: String;
   ticker: String;
   quote: Quote;
+};
+
+export type CompaniesTableRowType = {
+  md?: Sm;
+  text?: String | Number;
+  optional: boolean;
+  link?: string;
+  component?: JSX.Element;
+  color?: string;
+};
+
+export type HeaderRowType = {
+  text: string;
+  optional: boolean;
+  md?: Sm;
 };
 
 export type Sm =

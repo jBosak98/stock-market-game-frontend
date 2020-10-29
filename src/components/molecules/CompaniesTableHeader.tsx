@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Grid } from "@material-ui/core";
 
-import { Sm } from "../../lib/types";
+import { Sm, HeaderRowType } from "../../lib/types";
 import RowElement from "../atoms/RowElement";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type CompaniesTableHeaderProps = {
-  rows: { text: string; optional: boolean }[];
+  rows: HeaderRowType[];
   sm?: Sm;
 };
 
@@ -31,12 +31,13 @@ const CompaniesTableHeader = ({ rows, sm }: CompaniesTableHeaderProps) => {
         container
         direction="row"
       >
-        {rows.map(({ text, optional }) => (
+        {rows.map(({ text, optional, md = 2 }) => (
           <HeaderRowElement
             key={text}
             className={styles.element}
             optional={optional}
             sm={sm || "auto"}
+            md={md || "auto"}
           >
             {text}
           </HeaderRowElement>
@@ -51,14 +52,16 @@ type HeaderRowElementProps = {
   className?: string;
   optional?: boolean;
   sm?: Sm;
+  md?: Sm;
 };
 const HeaderRowElement = ({
   optional,
   children,
   className,
   sm,
+  md,
 }: HeaderRowElementProps) => (
-  <RowElement sm={sm} className={className} optional={optional}>
+  <RowElement sm={sm} md={md} className={className} optional={optional}>
     <Typography variant="subtitle1" color="primary">
       {children}
     </Typography>

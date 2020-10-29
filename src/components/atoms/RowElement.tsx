@@ -11,6 +11,7 @@ type RowElementProps = {
   optional?: boolean;
   link?: string | undefined;
   sm?: Sm;
+  md?: Sm;
   color?: string;
 };
 
@@ -36,7 +37,7 @@ const useElementStyles = makeStyles<Theme, RowElementProps>((theme) => ({
 }));
 
 const RowElement = (props: RowElementProps) => {
-  const { children, className, optional = false, link, sm, color } = props;
+  const { children, className, optional = false, link, sm, color, md } = props;
   const styles = useElementStyles(props);
   return (
     <Grid
@@ -44,7 +45,7 @@ const RowElement = (props: RowElementProps) => {
         styles.optional) ||
         ""}`}
       sm={sm || 4}
-      md={2}
+      md={md || 2}
       item
       color={color}
     >

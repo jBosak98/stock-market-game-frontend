@@ -34,8 +34,8 @@ const ResolutionSelect = ({
           setResolution(event.target.value as ChartResolutionType)
         }
       >
-        {/* <MenuItem value={"1"}>One minute</MenuItem>
-        <MenuItem value={"5"}>Five minutes</MenuItem> */}
+        {/* <MenuItem value={"1"}>One minute</MenuItem> */}
+        <MenuItem value={"5"}>Five minutes</MenuItem>
         <MenuItem value={"15"}>Fifteen minutes</MenuItem> 
         <MenuItem value={"30"}>Thirty minutes</MenuItem>
         <MenuItem value={"D"}>One Day</MenuItem>

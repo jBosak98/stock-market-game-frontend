@@ -53,6 +53,7 @@ export const meQuery = `
         shares {
           companyId
           amount
+          totalGain
           company{
             id
             ticker

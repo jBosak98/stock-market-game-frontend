@@ -64,6 +64,8 @@ const mapData = ([key, value]: any[]): string[][] => {
       return [["Current price: ", `${roundMoney(value)}$`]];
     case "accountValue":
       return [["Account Value: ", `${roundMoney(value)}$`]];
+    case "totalGain":
+      return [["Total Gain/Loss: ", `${roundMoney(Number(value))}%`]];
     default:
       return [];
   }
