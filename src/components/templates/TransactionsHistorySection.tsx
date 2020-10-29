@@ -39,7 +39,7 @@ function TransactionsHistorySection() {
         <Grid>
           {(!transactions.length && <NoHistoryInfo />) || (
             <>
-              <CompaniesTableHeader sm={3} rows={headerRows} />
+              <CompaniesTableHeader sm={2} rows={headerRows} />
               {transactions.map(
                 ({ id, company, pricePerShare, createdAt, quantity, type }) => {
                   const { ticker } = company;
@@ -56,10 +56,10 @@ function TransactionsHistorySection() {
                     { text: created.toLocaleString(), optional: false },
                     {
                       text: `${sign + roundMoney(pricePerShare * quantity)}$`,
-                      optional: true,
+                      optional: false,
                     },
                   ];
-                  return <CompaniesTableRow sm={3} key={id} rows={rows} />;
+                  return <CompaniesTableRow sm={2} key={id} rows={rows} />;
                 }
               )}
             </>

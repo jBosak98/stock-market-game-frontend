@@ -21,7 +21,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
   return (
     <SimplePaper topbar={<CompaniesTableTopbar />}>
       <Grid>
-        <CompaniesTableHeader rows={headerRows} />
+        <CompaniesTableHeader sm={4} rows={headerRows} />
         {companies?.map(({ id, name, ticker, quote }) => {
           const { currentPrice, dailyChange, dailyChangePercentage } = quote;
           const rows = [
@@ -62,7 +62,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
               link: `/company/${ticker}`,
             },
           ];
-          return <CompaniesTableRow rows={rows} key={id} />;
+          return <CompaniesTableRow sm={4} rows={rows} key={id} />;
         })}
       </Grid>
     </SimplePaper>
