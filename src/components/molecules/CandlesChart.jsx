@@ -5,7 +5,6 @@ import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
   CandlestickSeries,
   LineSeries,
-  TriangleMarker,
   ScatterSeries,
   CircleMarker,
 } from "react-stockcharts/lib/series";
@@ -20,10 +19,10 @@ import {
   MouseCoordinateY,
 } from "react-stockcharts/lib/coordinates";
 import { fitWidth } from "react-stockcharts/lib/helper";
-import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
+import { HoverTooltip } from "react-stockcharts/lib/tooltip";
 import { timeFormat } from "d3-time-format";
 import { useTheme } from "@material-ui/core/styles";
-import { SingleValueTooltip } from "react-stockcharts/lib/tooltip";
+import { ema } from "react-stockcharts/lib/indicator";
 
 const CandlesChart = ({
   type,
@@ -33,10 +32,62 @@ const CandlesChart = ({
   candleSeries,
   lineSeries,
   dateFormat,
+  showTransactions,
 }) => {
   const theme = useTheme();
   const xAccessor = (d) => d.date;
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
+  const ema50 = ema()
+    .id(2)
+    .options({ windowSize: 50 })
+    .merge((d, c) => {
+      d.ema50 = c;
+    })
+    .accessor((d) => d.ema50);
+  const numberFormat = format(".2f");
+
+  const tooltipContent = (ys) => {
+    return ({ currentItem, xAccessor }) => {
+      const { disposals, purchases, open, high, low, close } = currentItem;
+      return {
+        x: timeFormat(dateFormat)(xAccessor(currentItem)),
+        y: [
+          {
+            label: "open",
+            value: open && numberFormat(open),
+          },
+          {
+            label: "high",
+            value: high && numberFormat(high),
+          },
+          {
+            label: "low",
+            value: low && numberFormat(low),
+          },
+          {
+            label: "close",
+            value: close && numberFormat(close),
+          },
+          {
+            label: "disposals",
+            value: disposals,
+          },
+          {
+            label: "purchases",
+            value: purchases,
+          },
+        ]
+          .concat(
+            ys.map((each) => ({
+              label: each.label,
+              value: each.value(currentItem),
+              stroke: each.stroke,
+            }))
+          )
+          .filter((line) => line.value),
+      };
+    };
+  };
 
   const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
   return (
@@ -59,36 +110,30 @@ const CandlesChart = ({
           orient="left"
           displayFormat={format(".4s")}
         />
-        <ScatterSeries
-          yAccessor={(d) => (d.purchases ? d.close : null)}
-          marker={TriangleMarker}
-          markerProps={{
-            width: 20,
-            stroke: "#2ca02c",
-            fill: theme.palette.primary.main,
-          }}
-        />
-        <ScatterSeries
-          yAccessor={(d) => (d.disposals ? d.close : null)}
-          marker={CircleMarker}
-          markerProps={{
-            width: 20,
-            stroke: "#2ca02c",
-            fill: theme.palette.primary.main,
-          }}
-        />
-        <SingleValueTooltip
-          origin={[100, 20]}
-          yLabel={"Purchases"}
-          yDisplayFormat={({ purchases }) => purchases}
-          displayValuesFor={(props, { currentItem }) => currentItem}
-        />
-        <SingleValueTooltip
-          origin={[10, 20]}
-          yLabel={"Disposals"}
-          yDisplayFormat={({ disposals }) => disposals}
-          displayValuesFor={(props, { currentItem }) => currentItem}
-        />
+        {showTransactions && (
+          <>
+            <ScatterSeries
+              yAccessor={(d) => (d.purchases ? d.close : null)}
+              marker={CircleMarker}
+              markerProps={{
+                r: 10,
+                stroke: "#2ca02c",
+                fill: theme.palette.primary.main,
+                opacity: 0.5,
+              }}
+            />
+            <ScatterSeries
+              yAccessor={(d) => (d.purchases ? d.close : null)}
+              marker={CircleMarker}
+              markerProps={{
+                r: 10,
+                stroke: "#2ca02c",
+                fill: theme.palette.primary.main,
+                opacity: 0.5,
+              }}
+            />
+          </>
+        )}
       </Chart>
       <Chart id={1} yExtents={(d) => [d.high, d.low]}>
         <XAxis
@@ -127,11 +172,16 @@ const CandlesChart = ({
           fill={(d) => (d.close > d.open ? "#6BA583" : "#FF0000")}
         />
 
-        <OHLCTooltip
+        <HoverTooltip
+          yAccessor={ema50.accessor()}
+          tooltipContent={tooltipContent([])}
+          fontSize={15}
+        />
+        {/* <OHLCTooltip
           origin={[10, 0]}
           labelFill={theme.palette.primary.main}
           textFill={theme.palette.text.primary}
-        />
+        /> */}
       </Chart>
       <CrossHairCursor stroke={theme.palette.grey["50"]} />
     </ChartCanvas>

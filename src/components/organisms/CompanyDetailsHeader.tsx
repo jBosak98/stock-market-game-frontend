@@ -21,6 +21,9 @@ import ScrollDisableWrapper from '../atoms/ScrollDisableWrapper';
 import getTransactionsQuery, {
   Transactions,
 } from "../../lib/getTransactionsQuery";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 type CompanyDetailsHeaderProps = {
   ticker: string;
@@ -28,12 +31,7 @@ type CompanyDetailsHeaderProps = {
 
 const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
   const [resolution, setResolution] = useState<ChartResolutionType>("D");
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date('2014-08-18T21:11:54'),
-  );
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
+  const [showTransactions, setShowTransactions] = useState<boolean>(false);
   const from =  moment().startOf('minute').subtract(1,'year').toDate().toJSON();
   const to = moment().startOf('minute').toDate().toJSON();
   const [{ data, fetching, error }] = useQuery<{getCandles:Candles}>({
@@ -61,22 +59,14 @@ const CompanyDetailsHeader = ({ ticker }: CompanyDetailsHeaderProps) => {
       topbar={<Topbar ticker={ticker} ownedShares={ownedShares}/>}
     >
      {fetching && <Loader/> || <Grid container direction="column">
-       <CandlesChart lineSeries={isResolutionInMinutes} candleSeries={!isResolutionInMinutes}  type={'svg'} data={chartData} dateFormat={dateFormat}/>
+       <CandlesChart showTransactions={showTransactions} lineSeries={isResolutionInMinutes} candleSeries={!isResolutionInMinutes}  type={'svg'} data={chartData} dateFormat={dateFormat}/>
        <Grid container justify="space-between" direction="row">
         <TransactionButtonLink ticker={ticker}/>
         <Grid direction="row" alignItems="flex-start">
-        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> //TODO: implement refetch based on date
-          <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-dialog"
-            format="dd/MM/yyyy"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-        </MuiPickersUtilsProvider> */}
+        <FormControlLabel
+        control={<Checkbox  color="primary" checked={showTransactions} onChange={()=>setShowTransactions(prev => !prev)} name="checkedA" />}
+        label="Show purchases and disposals"
+      />
         <ResolutionSelect setResolution={setResolution} resolution={resolution} />
         </Grid>
       </Grid>
