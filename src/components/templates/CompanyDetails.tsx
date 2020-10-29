@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import ContentContainer from "../atoms/ContentContainer";
 import useCompany from "../../hooks/useCompany";
 import DataPaper from "../organisms/DataPaper";
-import CompanyDetailsHeader from "../organisms/CompanyDetailsHeader";
+import CompanyDetailsChartContainer from "../organisms/CompanyDetailsChartContainer";
 import Loader from "../atoms/Loader";
 
 type CompanyDetailsProps = {
@@ -32,7 +32,7 @@ const CompanyDetails = ({ match, history }: CompanyDetailsProps) => {
   return (
     <>
       <ContentContainer>
-        <CompanyDetailsHeader ticker={ticker} />
+        <CompanyDetailsChartContainer ticker={ticker} />
         <Grid container justify="center" direction="row">
           <DataPaper data={getCompany} title="key data" />
           <DataPaper data={financials} />
