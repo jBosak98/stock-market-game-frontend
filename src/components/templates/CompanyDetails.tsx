@@ -34,7 +34,7 @@ const CompanyDetails = ({ match, history }: CompanyDetailsProps) => {
       <ContentContainer>
         <CompanyDetailsChartContainer ticker={ticker} />
         <Grid container justify="center" direction="row">
-          <DataPaper data={getCompany} title="key data" />
+          <DataPaper data={getCompany} title="Fundamental data" />
           <DataPaper data={financials} />
         </Grid>
       </ContentContainer>
