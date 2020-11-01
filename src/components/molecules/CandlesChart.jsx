@@ -33,9 +33,11 @@ const CandlesChart = ({
   lineSeries,
   dateFormat,
   showTransactions,
+  xScale,
+  xAccessor,
+  displayXAccessor,
 }) => {
   const theme = useTheme();
-  const xAccessor = (d) => d.date;
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
   const ema50 = ema()
     .id(2)
@@ -101,7 +103,11 @@ const CandlesChart = ({
       seriesName="MSFT"
       data={data}
       xAccessor={xAccessor}
-      xScale={scaleTime()}
+      displayXAccessor={displayXAccessor}
+      xScale={
+        xScale
+        // scaleTime()
+      }
       xExtents={xExtents}
     >
       <Chart id={2} yExtents={(d) => [d.high, d.low]}>

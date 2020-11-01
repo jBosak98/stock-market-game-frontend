@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { useQuery } from "urql";
 import moment from 'moment';
+import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
+import { scaleTime } from "d3-scale";
 
 
 
@@ -11,6 +13,8 @@ import type { ChartResolutionType } from '../lib/types';
 import getTransactionsQuery, {
   Transactions,
 } from "../lib/getTransactionsQuery";
+import mapChartData from "../lib/mapChartData";
+
 
 
 const useChartContainer = (ticker: string) => {
@@ -25,8 +29,9 @@ const useChartContainer = (ticker: string) => {
     .startOf("minute")
     .toDate()
     .toJSON();
-  const [{ data, fetching, error }] = useQuery<{ getCandles: Candles }>({
+  const [{ data:rawData, fetching, error }] = useQuery<{ getCandles: Candles }>({
     query: getCandlesQuery,
+    requestPolicy:'cache-and-network',
     variables: {
       ticker,
       from,
@@ -46,7 +51,18 @@ const useChartContainer = (ticker: string) => {
     resolution === "15" ||
     resolution === "30";
   const dateFormat = isResolutionInMinutes ? "%m-%d %H:%M" : "%Y-%m-%d";
+  const dataWithTransactions = (rawData && mapChartData(rawData, transactionsData)) || [];
 
+
+  const xScaleProvider:any = discontinuousTimeScaleProvider.inputDateAccessor(
+    (d:any) => d.date
+  );
+  const xScaleProviderData = xScaleProvider(
+    dataWithTransactions
+  );
+    const {data, displayXAccessor} = xScaleProviderData;
+    const xScale = isResolutionInMinutes ? xScaleProviderData.xScale : scaleTime()
+    const xAccessor = isResolutionInMinutes ? xScaleProviderData.xAccessor : (d:any) => d.date;
   return {
     resolution,
     setResolution,
@@ -54,10 +70,12 @@ const useChartContainer = (ticker: string) => {
     setShowTransactions,
     data,
     fetching,
-    transactionsData,
     user,
     isResolutionInMinutes,
-    dateFormat
+    dateFormat,
+    xScale,
+    xAccessor,
+    displayXAccessor
   };
 };
 

@@ -24,6 +24,7 @@ export const useRefreshUser = () => {
   );
   const [{ data, fetching }, refetch] = useQuery<{ me: User }>({
     query: meQuery,
+    requestPolicy: "cache-and-network",
   });
   return () =>
     new Promise<{ me: User } | undefined>(

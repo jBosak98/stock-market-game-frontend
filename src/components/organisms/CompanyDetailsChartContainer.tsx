@@ -9,7 +9,6 @@ import ChartFooter from "../molecules/ChartFooter";
 import Topbar from "../atoms/CompanyDetailsChartContainerTopbar";
 import useChartContainer from "../../hooks/useChartContainer";
 import CandlesChart from "../molecules/CandlesChart";
-import mapChartData from "../../lib/mapChartData";
 
 type CompanyDetailsChartContainerProps = {
   ticker: string;
@@ -25,16 +24,17 @@ const CompanyDetailsChartContainer = ({
     setShowTransactions,
     data,
     fetching,
-    transactionsData,
     user,
     isResolutionInMinutes,
     dateFormat,
+    xScale,
+    xAccessor,
+    displayXAccessor,
   } = useChartContainer(ticker);
 
   const ownedShares =
     user?.assets.shares.find((share) => share.company.ticker === ticker)
       ?.amount || 0;
-  const chartData = (data && mapChartData(data, transactionsData)) || [];
 
   return (
     <ScrollDisableWrapper>
@@ -50,8 +50,11 @@ const CompanyDetailsChartContainer = ({
               lineSeries={isResolutionInMinutes}
               candleSeries={!isResolutionInMinutes}
               type={"svg"}
-              data={chartData}
+              data={data}
               dateFormat={dateFormat}
+              xScale={xScale}
+              xAccessor={xAccessor}
+              displayXAccessor={displayXAccessor}
             />
             <ChartFooter
               showTransactions={showTransactions}

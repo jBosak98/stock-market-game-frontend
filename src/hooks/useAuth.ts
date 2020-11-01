@@ -60,7 +60,9 @@ const useLogin = (
   const login = async (
     args: LoginVariables
   ): Promise<OperationResult<LoginResponse>> => {
-    const response = await loginFetch(args);
+    const response = await loginFetch(args, {
+      requestPolicy: "network-only",
+    });
 
     if (!response.error) {
       if (response.data) {
