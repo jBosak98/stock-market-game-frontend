@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import { ChartCanvas, Chart } from "react-stockcharts";
+import React, { useRef, useState } from "react";
+import { ChartCanvas, Chart, ZoomButtons } from "react-stockcharts";
 import { last, timeIntervalBarWidth } from "react-stockcharts/lib/utils";
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 import {
@@ -37,6 +37,7 @@ const CandlesChart = ({
   xAccessor,
   displayXAccessor,
 }) => {
+  const [suffix, setSuffix] = useState(1);
   const theme = useTheme();
   const elementsWidth = data.length < 20 ? data.length / 2 : 20;
   const ema50 = ema()
@@ -98,16 +99,14 @@ const CandlesChart = ({
       clamp={true}
       ratio={1}
       width={width}
+      zoomEvent={false}
       margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
       type={type}
-      seriesName="MSFT"
+      seriesName={`MSFT_${suffix}`}
       data={data}
       xAccessor={xAccessor}
       displayXAccessor={displayXAccessor}
-      xScale={
-        xScale
-        // scaleTime()
-      }
+      xScale={xScale}
       xExtents={xExtents}
     >
       <Chart id={2} yExtents={(d) => [d.high, d.low]}>
@@ -116,6 +115,7 @@ const CandlesChart = ({
           orient="left"
           displayFormat={format(".4s")}
         />
+        <ZoomButtons onReset={() => setSuffix((oldSuffix) => oldSuffix + 1)} />
         {showTransactions && (
           <>
             <ScatterSeries
@@ -145,6 +145,7 @@ const CandlesChart = ({
         <XAxis
           axisAt="bottom"
           orient="bottom"
+          zoomEnabled={false}
           ticks={6}
           stroke={theme.palette.grey["100"]}
           tickStroke={theme.palette.grey["50"]}
@@ -154,6 +155,7 @@ const CandlesChart = ({
           axisAt="left"
           orient="left"
           ticks={5}
+          zoomEnabled={false}
           stroke={theme.palette.grey["100"]}
           tickStroke={theme.palette.grey["50"]}
         />
