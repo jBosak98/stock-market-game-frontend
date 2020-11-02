@@ -34,7 +34,7 @@ const KeyValueRow = ({ dataKey, value }: KeyValueRowProps) => {
       </Grid>
       <Grid sm={5} item>
         <Typography color="inherit" display="inline" variant="body1">
-          {value}
+          {value || "Not available"}
         </Typography>
       </Grid>
     </Grid>
