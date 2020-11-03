@@ -28,7 +28,7 @@ const PortfolioTopbar = ({ money, accountValue }: PortfolioTopbarProps) => {
         {[
           ["money", money],
           ["accountValue", accountValue],
-          ["totalIncome", moneyToStart - accountValue],
+          ["totalIncome", accountValue - moneyToStart],
         ].map((data) => (
           <Grid
             key={data[0]}
