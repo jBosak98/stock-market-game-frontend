@@ -3,6 +3,7 @@ import { useQuery } from "urql";
 import moment from 'moment';
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { scaleTime } from "d3-scale";
+import { last } from "react-stockcharts/lib/utils";
 
 
 
@@ -51,7 +52,8 @@ const useChartContainer = (ticker: string) => {
     resolution === "15" ||
     resolution === "30";
   const dateFormat = isResolutionInMinutes ? "%m-%d %H:%M" : "%Y-%m-%d";
-  const dataWithTransactions = (rawData && mapChartData(rawData, transactionsData)) || [];
+  const companyTransactions = transactionsData?.getTransactions.filter(({company})=>company.ticker === ticker) || [];
+  const dataWithTransactions = (rawData && mapChartData(rawData, companyTransactions, showTransactions)) || [];
 
 
   const xScaleProvider:any = discontinuousTimeScaleProvider.inputDateAccessor(
@@ -62,7 +64,9 @@ const useChartContainer = (ticker: string) => {
   );
     const {data, displayXAccessor} = xScaleProviderData;
     const xScale = isResolutionInMinutes ? xScaleProviderData.xScale : scaleTime()
-    const xAccessor = isResolutionInMinutes ? xScaleProviderData.xAccessor : (d:any) => d.date;
+    const xAccessor =  isResolutionInMinutes ? xScaleProviderData.xAccessor : (d:any) =>d && d.date || new Date();
+    const elementsWidth = 2;
+    const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
   return {
     resolution,
     setResolution,
@@ -75,6 +79,8 @@ const useChartContainer = (ticker: string) => {
     dateFormat,
     xScale,
     xAccessor,
+    xExtents,
+    companyTransactions,
     displayXAccessor
   };
 };

@@ -28,7 +28,9 @@ const CompanyDetailsChartContainer = ({
     dateFormat,
     xScale,
     xAccessor,
+    xExtents,
     displayXAccessor,
+    companyTransactions,
   } = useChartContainer(ticker);
 
   const ownedShares =
@@ -49,6 +51,7 @@ const CompanyDetailsChartContainer = ({
             data={data}
             dateFormat={dateFormat}
             xScale={xScale}
+            xExtents={xExtents}
             xAccessor={xAccessor}
             displayXAccessor={displayXAccessor}
           />
@@ -56,6 +59,7 @@ const CompanyDetailsChartContainer = ({
             showTransactions={showTransactions}
             setShowTransactions={setShowTransactions}
             resolution={resolution}
+            disableShowTransactions={!companyTransactions.length}
             setResolution={setResolution}
             ticker={ticker}
           />

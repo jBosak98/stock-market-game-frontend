@@ -36,10 +36,11 @@ const CandlesChart = ({
   xScale,
   xAccessor,
   displayXAccessor,
+  xExtents,
 }) => {
   const [suffix, setSuffix] = useState(1);
   const theme = useTheme();
-  const elementsWidth = data.length < 20 ? data.length / 2 : 20;
+
   const ema50 = ema()
     .id(2)
     .options({ windowSize: 50 })
@@ -92,7 +93,6 @@ const CandlesChart = ({
     };
   };
 
-  const xExtents = [xAccessor(last(data)), xAccessor(data[elementsWidth])];
   return (
     <ChartCanvas
       height={400}

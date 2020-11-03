@@ -10,11 +10,19 @@ type ChartFooterProps = {
     setShowTransactions: (prev:boolean) => any;
     resolution: ChartResolutionType;
     setResolution: (res:ChartResolutionType) => any;
-    ticker:string
+    ticker:string;
+    disableShowTransactions:boolean;
 }
 
 const ChartFooter = (props:ChartFooterProps) => {
-  const {showTransactions, setShowTransactions, resolution, setResolution, ticker} = props;
+  const {
+    showTransactions,
+    setShowTransactions, 
+    resolution, 
+    setResolution, 
+    ticker, 
+    disableShowTransactions
+  } = props;
 
   return (
     <Grid container justify="space-between" direction="row">
@@ -24,6 +32,7 @@ const ChartFooter = (props:ChartFooterProps) => {
         setShowTransactions={setShowTransactions}
         resolution={resolution}
         setResolution={setResolution}
+        disableShowTransactions={disableShowTransactions}
       />
     </Grid>
   );

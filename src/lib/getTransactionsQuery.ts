@@ -20,7 +20,7 @@ export type Transactions = {
   getTransactions: Transaction[];
 };
 
-type Transaction = {
+export type Transaction = {
   id: number;
   createdAt: string;
   quantity: number;

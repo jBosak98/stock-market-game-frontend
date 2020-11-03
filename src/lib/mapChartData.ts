@@ -1,23 +1,27 @@
+
 import type {Candles} from './getCandlesQuery';
-import { Transactions } from "./getTransactionsQuery";
+import { Transaction } from "./getTransactionsQuery";
 
 
 const mapChartData = (
   data: { getCandles: Candles },
-  transactionsData: Transactions | undefined
-) =>
-  data?.getCandles?.map(
+  transactionsData: Transaction[],
+  showTransactions: boolean
+) =>{
+ const candles = data?.getCandles?.map(
     ({ openPrice, highPrice, lowPrice, closePrice, volume, time }, index) => {
       const transactions =
-        transactionsData?.getTransactions.filter((t) => {
+      transactionsData
+        .filter((transaction) => {
           const nextPointDate = data?.getCandles[index + 1]?.time
             ? new Date(data?.getCandles[index + 1]?.time)
             : new Date();
           return (
-            new Date(t.createdAt) > new Date(time) &&
-            new Date(t.createdAt) < nextPointDate
+            new Date(transaction.createdAt) > new Date(time) &&
+            new Date(transaction.createdAt) < nextPointDate
           );
         }) || [];
+        
       const disposals = transactions
         .filter(({ type }) => type === "DISPOSAL")
         .reduce(
@@ -47,6 +51,17 @@ const mapChartData = (
       };
     }
   ) || [];
+  
+  
+  const limitRangeToFirstTransaction = () => {
+    const margin = 3;
+    const firstTransactionIndex = candles
+    .sort((first,second)=>first.date.getTime() - second.date.getTime())
+    .findIndex((candle)=>candle.transactions.length);
+    return candles.slice(firstTransactionIndex - margin || 0, candles.length);
+  }
 
+  return showTransactions ? limitRangeToFirstTransaction() : candles;
+}
 
   export default mapChartData;

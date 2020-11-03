@@ -12,14 +12,22 @@ type ChartSettingsProps = {
   setShowTransactions: (prev:boolean) => any;
   resolution: ChartResolutionType;
   setResolution: (res:ChartResolutionType) => any;
+  disableShowTransactions:boolean;
 };
 const ChartSettings = (props:ChartSettingsProps) => {
-  const {showTransactions, setShowTransactions, resolution, setResolution} = props;
+  const {
+    showTransactions, 
+    setShowTransactions, 
+    resolution, 
+    setResolution,
+    disableShowTransactions
+  } = props;
   return (
     <Grid direction="row" alignItems="flex-start">
       <FormControlLabel
         control={
           <Checkbox
+            disabled={disableShowTransactions}
             color="primary"
             checked={showTransactions}
             onChange={() => setShowTransactions(!showTransactions)}
