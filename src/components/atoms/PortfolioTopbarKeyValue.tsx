@@ -17,7 +17,7 @@ const PortfolioTopBarKeyValue = (props: KeyValueComponentProps) => {
     <ConditionalWrapper
       condition={!!tooltip.length}
       wrapper={(children: React.ReactNode) => (
-        <Tooltip title={tooltip}>
+        <Tooltip arrow={true} title={<Typography>{tooltip}</Typography>}>
           {children as React.ReactElement<any, any>}
         </Tooltip>
       )}
