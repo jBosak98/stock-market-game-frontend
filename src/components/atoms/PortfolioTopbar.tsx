@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 
-import mapData from "../../lib/mapData";
+import PortfolioTopBarKeyValue from "./PortfolioTopbarKeyValue";
 
 type PortfolioTopbarProps = { money: number; accountValue: number };
 
@@ -25,32 +25,21 @@ const PortfolioTopbar = ({ money, accountValue }: PortfolioTopbarProps) => {
         Portfolio
       </Typography>
       <Grid className={styles.item} item direction="column">
-        {[
-          ["money", money],
-          ["accountValue", accountValue],
-          ["totalIncome", accountValue - moneyToStart],
-        ].map((data) => (
-          <Grid
-            key={data[0]}
-            className={styles.flex}
-            xs={12}
-            item
-            direction="row"
-          >
-            {mapData(data)[0].map((singleValue) => (
-              <Grid
-                item
-                direction={"column"}
-                xs={6}
-                key={singleValue.toString()}
-              >
-                <Typography align="right" color="textSecondary">
-                  {singleValue}
-                </Typography>
-              </Grid>
-            ))}
-          </Grid>
-        ))}
+        <PortfolioTopBarKeyValue
+          classname={styles.flex}
+          data={["money", money]}
+          tooltip={"Total amount of cash available for trading stocks with"}
+        />
+        <PortfolioTopBarKeyValue
+          classname={styles.flex}
+          tooltip={"Calculated as cash + market value of stocks"}
+          data={["accountValue", accountValue]}
+        />
+        <PortfolioTopBarKeyValue
+          tooltip={"Money earned since the start the game"}
+          classname={styles.flex}
+          data={["totalIncome", accountValue - moneyToStart]}
+        />
       </Grid>
     </Grid>
   );
