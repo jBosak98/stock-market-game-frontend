@@ -32,7 +32,7 @@ const PortfolioTopbar = ({ money, accountValue }: PortfolioTopbarProps) => {
         />
         <PortfolioTopBarKeyValue
           classname={styles.flex}
-          tooltip={"Calculated as cash + market value of stocks"}
+          tooltip={"Sum of free cash and stock values"}
           data={["accountValue", accountValue]}
         />
         <PortfolioTopBarKeyValue
