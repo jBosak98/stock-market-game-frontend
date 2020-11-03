@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
 
 const PortfolioTopbar = ({ money, accountValue }: PortfolioTopbarProps) => {
   const styles = useStyles();
+  const moneyToStart = 100000;
   return (
     <Grid component="div" container direction="row" justify="space-between">
       <Typography variant="h4" color="textSecondary">
@@ -27,6 +28,7 @@ const PortfolioTopbar = ({ money, accountValue }: PortfolioTopbarProps) => {
         {[
           ["money", money],
           ["accountValue", accountValue],
+          ["totalIncome", moneyToStart - accountValue],
         ].map((data) => (
           <Grid
             key={data[0]}
