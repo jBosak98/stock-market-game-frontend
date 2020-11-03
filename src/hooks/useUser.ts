@@ -55,6 +55,7 @@ export const meQuery = `
           companyId
           amount
           totalGain
+          totalGainPercentage
           company{
             id
             ticker

@@ -10,6 +10,7 @@ export type User = {
       amount: number;
       company: Company;
       totalGain: number;
+      totalGainPercentage: number;
     }[];
   };
 };

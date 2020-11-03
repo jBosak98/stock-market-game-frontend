@@ -17,6 +17,7 @@ const loginQuery = `
           companyId
           amount
           totalGain
+          totalGainPercentage
           company{
             id
             ticker

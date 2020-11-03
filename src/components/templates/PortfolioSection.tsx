@@ -23,8 +23,8 @@ function PortfolioSection() {
     { text: "SYMBOL", optional: true },
     { text: "NAME", optional: false },
     { text: "SHARES", optional: false, md: 1 },
-    { text: "CHANGE", optional: false, md: 1 },
-    { text: "CHANGE PERCENTAGE", optional: true },
+    { text: "DAILY CHANGE", optional: false, md: 1 },
+    { text: "DAILY CHANGE PERCENTAGE", optional: true },
     { text: "LAST PRICE", optional: false },
     { text: "TOTAL GAIN/LOSS", optional: true, md: 1 },
   ];
@@ -41,7 +41,7 @@ function PortfolioSection() {
           {(!shares.length && <NoSharesInfo />) || (
             <>
               <CompaniesTableHeader sm={3} rows={headerRows} />
-              {shares.map(({ amount, companyId, company, totalGain }) => {
+              {shares.map(({ amount, companyId, company, totalGain, totalGainPercentage }) => {
                 const { name, ticker, quote } = company;
                 const {
                   currentPrice,
@@ -72,10 +72,10 @@ function PortfolioSection() {
                   },
                   { text: currentPrice, optional: false },
                   {
-                    text: mapData(["totalGain", totalGain])[0][1],
+                    text: mapData(["totalGain", {totalGainPercentage, totalGain}])[0][1],
                     optional: true,
                     md: 1,
-                    color: totalGain > 0 ? "green" : "red",
+                    color: totalGainPercentage > 0 ? "green" : "red",
                   },
                 ];
                 return <CompaniesTableRow sm={3} key={companyId} rows={rows} />;

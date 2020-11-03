@@ -15,7 +15,7 @@ const CompaniesTable = ({ companies }: CompaniesTableProps) => {
     { text: "SYMBOL", optional: true },
     { text: "NAME", optional: false },
     { text: "DAILY CHANGE", optional: false },
-    { text: "CHANGE PERCENTAGE", optional: true },
+    { text: "DAILY CHANGE PERCENTAGE", optional: true },
     { text: "LAST PRICE", optional: false },
   ];
   return (
