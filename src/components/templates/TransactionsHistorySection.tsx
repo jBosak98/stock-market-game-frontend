@@ -25,6 +25,7 @@ function TransactionsHistorySection() {
     { text: "PRICE PER SHARE", optional: false },
     { text: "DATE", optional: false },
     { text: "SUBTOTAL", optional: false },
+    { text: "TYPE", optional: true },
   ];
   const transactions = data?.getTransactions || [];
   return (
@@ -55,9 +56,11 @@ function TransactionsHistorySection() {
                     { text: roundMoney(pricePerShare), optional: false },
                     { text: created.toLocaleString(), optional: false },
                     {
-                      text: `${sign + roundMoney(pricePerShare * quantity)}$`,
+                      text: `${sign +
+                        Math.abs(roundMoney(pricePerShare * quantity))}$`,
                       optional: false,
                     },
+                    { text: type, optional: true },
                   ];
                   return <CompaniesTableRow sm={2} key={id} rows={rows} />;
                 }
