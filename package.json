@@ -21,7 +21,7 @@
     "@types/react-router-dom": "^5.1.3",
     "@urql/core": "^1.14.1",
     "@urql/exchange-request-policy": "^0.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "electron": "^8.2.0",
     "graphql": "^15.2.0",
