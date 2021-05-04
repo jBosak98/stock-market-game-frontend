@@ -10,7 +10,7 @@ const getToken = () => localStorage.getItem("token");
 
 const App = () => {
   const client = createClient({
-    url: "https://stock-market-game.me/graphql",
+    url: "https://secure.stock-market-game.me/graphql",
     // url: "http://localhost:8080/graphql",
     fetchOptions: () => {
       const token = getToken();
