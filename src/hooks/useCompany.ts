@@ -14,6 +14,9 @@ query getCompanies($ticker: String!) {
     phone
     shareOutstanding
     finnhubIndustry
+    weburl
+    logo
+    businessSummary
     financials {
       bookValuePerShareAnnual
       bookValuePerShareQuarterly
@@ -38,21 +41,25 @@ query getCompanies($ticker: String!) {
   }
 }
 `;
+type GetCompany = {
+  id: number;
+  country: string;
+  name: string;
+  ticker: string;
+  currency: string;
+  exchange: string;
+  ipo: string;
+  phone: string;
+  shareOutstanding: number;
+  finnhubIndustry: string;
+  financials: Financials;
+  quote: Quote;
+  weburl: string;
+  logo: string;
+  businessSummary: string;
+}
 type CompanyResult = {
-  getCompany?: {
-    id: number;
-    country: string;
-    name: string;
-    ticker: string;
-    currency: string;
-    exchange: string;
-    ipo: string;
-    phone: string;
-    shareOutstanding: number;
-    finnhubIndustry: string;
-    financials: Financials;
-    quote: Quote;
-  };
+  getCompany?: GetCompany;
 };
 
 type Financials = {

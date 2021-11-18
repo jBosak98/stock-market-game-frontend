@@ -27,7 +27,7 @@ type StockQueryResult = {
   };
 };
 
-const useStock = (skip: number = 0, limit: number = 10) => {
+const useStock = (skip: number = 0, limit: number = 150) => {
   const [result] = useQuery<StockQueryResult>({
     query: stockQuery,
     variables: { skip, limit },

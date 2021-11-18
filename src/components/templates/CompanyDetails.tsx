@@ -6,6 +6,7 @@ import useCompany from "../../hooks/useCompany";
 import DataPaper from "../organisms/DataPaper";
 import CompanyDetailsChartContainer from "../organisms/CompanyDetailsChartContainer";
 import Loader from "../atoms/Loader";
+import SimpleTitledPaper from "../molecules/SimpleTitledPaper";
 
 type CompanyDetailsProps = {
   children?: React.ReactNode;
@@ -27,14 +28,17 @@ const CompanyDetails = ({ match, history }: CompanyDetailsProps) => {
   }
   if (fetching) return <Loader />;
 
-  const { getCompany = { financials: {} } } = data;
-  const { financials = {} } = getCompany || {};
+  const { getCompany } = data;
+  const { financials = {}, businessSummary } = getCompany || {};
   return (
     <>
       <ContentContainer>
         <CompanyDetailsChartContainer ticker={ticker} />
+        {businessSummary && <SimpleTitledPaper title={"description"}>
+          {businessSummary}
+        </SimpleTitledPaper>}
         <Grid container justify="center" direction="row">
-          <DataPaper data={getCompany} title="Fundamental data" />
+          {getCompany && <DataPaper data={getCompany} title="Fundamental data" />}
           <DataPaper data={financials} />
         </Grid>
       </ContentContainer>
