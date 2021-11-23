@@ -19,7 +19,7 @@ import mapChartData from "../lib/mapChartData";
 
 
 const useChartContainer = (ticker: string) => {
-  const [resolution, setResolution] = useState<ChartResolutionType>("D");
+  const [resolution, setResolution] = useState<ChartResolutionType>("15");
   const [showTransactions, setShowTransactions] = useState<boolean>(false);
   const from = moment()
     .startOf("minute")

@@ -43,7 +43,7 @@ const CompanyDetailsChartContainer = ({
         <Loader />
       ) : (
         <Grid container direction="column">
-          <CandlesChart
+          {data.length !== 0 && <CandlesChart
             showTransactions={showTransactions}
             lineSeries={isResolutionInMinutes}
             candleSeries={!isResolutionInMinutes}
@@ -54,7 +54,7 @@ const CompanyDetailsChartContainer = ({
             xExtents={xExtents}
             xAccessor={xAccessor}
             displayXAccessor={displayXAccessor}
-          />
+          />}
           <ChartFooter
             showTransactions={showTransactions}
             setShowTransactions={setShowTransactions}

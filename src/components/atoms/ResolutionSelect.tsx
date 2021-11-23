@@ -29,6 +29,7 @@ const ResolutionSelect = ({
   return (
     <FormControl className={styles.form}>
       <Select
+        disabled={true}
         value={resolution}
         onChange={(event) =>
           setResolution(event.target.value as ChartResolutionType)
