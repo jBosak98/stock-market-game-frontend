@@ -17,6 +17,10 @@ query getCompanies($ticker: String!) {
     weburl
     logo
     businessSummary
+    hurstDailyOpen
+    hurstDailyClose
+    hurstWeeklyOpen
+    hurstWeeklyClose
     financials {
       bookValuePerShareAnnual
       bookValuePerShareQuarterly

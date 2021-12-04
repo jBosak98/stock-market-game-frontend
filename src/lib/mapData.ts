@@ -75,7 +75,12 @@ const mapData = ([key, value]: any[]): string[][] => {
       ];
     case "totalIncome":
       return [["Total income: ", `${roundMoney(value)}$`]];
+    case "hurstDailyClose":
+      return [["Hurst per day", value]];
+    case "hurstWeeklyClose":
+      return [["Hurst per week", value]];
     default:
+      console.log(key)
       return [];
   }
 };
