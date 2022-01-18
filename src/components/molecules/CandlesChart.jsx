@@ -171,7 +171,8 @@ const CandlesChart = ({
             width={timeIntervalBarWidth(utcDay)}
           />
         )}
-        {lineSeries && <LineSeries yAccessor={(d) => d.close} />}
+        {lineSeries && <LineSeries yAccessor={(d) => d.predicted ? 0 : d.close} defined={(value) => value || false} />}
+        {lineSeries && <LineSeries yAccessor={(d) => d.predicted ? d.close : 0} stroke="pink" defined={(value) => value || false} />}
         <EdgeIndicator
           itemType="last"
           orient="right"

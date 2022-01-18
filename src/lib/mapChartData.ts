@@ -4,17 +4,17 @@ import { Transaction } from "./getTransactionsQuery";
 
 
 const mapChartData = (
-  data: { getCandles: Candles },
+  data: Candles,
   transactionsData: Transaction[],
   showTransactions: boolean
 ) =>{
- const candles = data?.getCandles?.map(
-    ({ openPrice, highPrice, lowPrice, closePrice, volume, time }, index) => {
+ const candles = data?.map(
+    ({ openPrice, highPrice, lowPrice, closePrice, volume, time, predicted }, index) => {
       const transactions =
       transactionsData
         .filter((transaction) => {
-          const nextPointDate = data?.getCandles[index + 1]?.time
-            ? new Date(data?.getCandles[index + 1]?.time)
+          const nextPointDate = data[index + 1]?.time
+            ? new Date(data[index + 1]?.time)
             : new Date();
           return (
             new Date(transaction.createdAt) > new Date(time) &&
@@ -48,6 +48,7 @@ const mapChartData = (
         purchases,
         disposals,
         transactions,
+        predicted:!!predicted
       };
     }
   ) || [];

@@ -21,6 +21,7 @@ type Candle = {
   closePrice: number;
   volume: number;
   time: string;
+  predicted?: boolean;
 };
 
 export default getCandlesQuery;
