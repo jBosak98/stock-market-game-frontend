@@ -23,7 +23,7 @@
     "@urql/exchange-request-policy": "^0.1.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
-    "electron": "^8.2.0",
+    "electron": "^18.3.7",
     "graphql": "^15.2.0",
     "gulp": "^4.0.2",
     "hex-to-rgba": "^2.0.1",
